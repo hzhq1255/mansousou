@@ -41,9 +41,9 @@ public class ComicController {
             pageSize = 10;
         }
         HashMap<String,Object> hashMap = new HashMap<>();
+        Page<ComicEs> comics = comicService.searchComic(keyword,currentPage-1,pageSize);
         hashMap.put("currentPage",currentPage);
         hashMap.put("pageSize",pageSize);
-        Page<ComicEs> comics = comicService.searchComic(keyword,currentPage-1,pageSize);
         hashMap.put("totalElements",comics.getTotalElements());
         hashMap.put("totalPages",comics.getTotalPages());
         hashMap.put("content",comics.getContent());

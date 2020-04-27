@@ -39,7 +39,7 @@ public class ComicServiceImpl implements ComicService {
     public Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize){
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        builder.should(QueryBuilders.matchPhraseQuery("title",keyword));
+        builder.should(QueryBuilders.matchPhraseQuery("title",keyword).boost(2f));
         return comicEsRepository.search(builder,pageable);
     }
 

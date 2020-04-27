@@ -1,10 +1,10 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author hzhq1255
@@ -17,7 +17,14 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    private Integer id;
-    private String name;
-
+    @JsonProperty("id")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
+    @JsonProperty("name")
+    @Column(name = "name")
+    private String userName;
+    private String password;
+    private Date createTime;
+    private Date updateTime;
 }

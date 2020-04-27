@@ -1,8 +1,16 @@
 package cn.zucc.edu.mansousou.controller;
 
+import cn.zucc.edu.mansousou.service.inter.UserService;
 import cn.zucc.edu.mansousou.util.Result;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+
 
 /**
  * @author hzhq1255
@@ -13,12 +21,47 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UserController {
 
+    UserService userService;
 
-    public Result login(){
-        return null;
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
-    public Result reg(){
-        return null;
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public Result login(@RequestParam("username") @NotNull String username,
+                        @RequestParam("password") @NotNull String password){
+        if (username.isEmpty() || username == null ){
+            return Result.build(400,"用户名为空");
+        }
+        if (password.isEmpty() || password == null){
+            return Result.build(400,"密码为空");
+        }
+        Result result = userService.loginCheck(username,password);
+        if (result.getStatus() == 400){
+            return Result.error("用户名或密码错误");
+        }
+        if (result.getStatus() == 200){
+            HashMap<String,Object> hashMap = new HashMap<String, Object>();
+            hashMap.put("token","admin-token");
+            result.setData(hashMap);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/reg",method = RequestMethod.POST)
+    public Result reg(@RequestParam("username") @NotNull String username,
+                      @RequestParam("password1") @NotNull String password1,
+                      @RequestParam("password2") @NotNull String password2){
+        if (username.isEmpty() || username == null){
+            return Result.build(400,"用户名为空");
+        }
+        if (password1.isEmpty() || password1 == null){
+            return Result.build(400,"密码为空");
+        }
+        if (password2.isEmpty() || password2 == null){
+            return Result.build(400,"密码为空");
+        }
+        return userService.regUser(username,password1,password2);
     }
 }

@@ -47,10 +47,12 @@ public class Result implements Serializable {
         return new Result(null);
     }
 
+    public static Result error(Object data) {
+        return new Result(400,"error",data);
+    }
     public static Result error(){
         return new Result(400,"error",null);
     }
-
 
     public Result() {
 
