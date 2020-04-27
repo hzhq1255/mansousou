@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author hzhq1255
  * @mail hzhq1255@163.com
- * @Date: 2020/4/27 20:20
+ * @Date 2020/4/27 20:20
  */
 @Data
 @Entity

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author hzhq1255
- * @mail hzhq1255@163.com
- * @Date: 2020/4/27 23:55
+ * @author: hzhq1255
+ * @mail: hzhq1255@163.com
+ * @date: 2020/4/27 23:55
  */
 @RestController
 @RequestMapping("/api")
@@ -31,9 +31,7 @@ public class ChapterController {
     public Result searchAllChapterByComicId(@RequestParam("comicId") @NotNull String comicId,
                                             @RequestParam("currentPage") @NotNull Integer currentPage,
                                             @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (comicId.isEmpty() || comicId == null ||
-                currentPage == 0 || currentPage == null ||
-                pageSize == 0 || pageSize == null){
+        if (comicId.isEmpty() || currentPage == 0  || pageSize == 0 ){
             return Result.error("无效参数");
         }
         if (pageSize < DEFAULT_PAGE_SIZE){
@@ -46,8 +44,7 @@ public class ChapterController {
     @RequestMapping(value = "/getAllChapter",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllChapter(@RequestParam("currentPage") @NotNull Integer currentPage,
                                 @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (currentPage == 0 || currentPage == null
-                || pageSize == 0 || pageSize == null){
+        if (currentPage == 0 || pageSize == 0 ){
             return Result.error("无效参数");
         }
         if (pageSize < DEFAULT_PAGE_SIZE){

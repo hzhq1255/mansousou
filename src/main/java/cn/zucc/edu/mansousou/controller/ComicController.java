@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * @author hzhq1255
- * @mail hzhq1255@163.com
- * @Date: 2020/4/27 16:46
+ * @author: hzhq1255
+ * @mail: hzhq1255@163.com
+ * @date: 2020/4/27 16:46
  */
 @RestController
 @RequestMapping("/api")
@@ -37,7 +37,7 @@ public class ComicController {
     public Result searchComic(@RequestParam("keyword") String keyword,
                               @RequestParam("currentPage") Integer currentPage,
                               @RequestParam("pageSize") Integer pageSize) throws IOException {
-        if (keyword.isEmpty() || keyword.equalsIgnoreCase("")){
+        if (keyword.isEmpty() ){
             return Result.build(400,"查询关键字不能为空");
         }else if (currentPage == null || currentPage == 0) {
             return Result.build(400, "当前页面参数不能为空");
@@ -51,7 +51,7 @@ public class ComicController {
         return Result.success(data);
     }
 
-    @RequestMapping(value = "/getAllComics",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/getAllComic",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllComics(@RequestParam("currentPage") Integer currentPage,
                               @RequestParam("pageSize") Integer pageSize){
         if (currentPage == null || currentPage == 0){

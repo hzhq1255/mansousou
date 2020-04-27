@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author hzhq1255
- * @mail hzhq1255@163.com
- * @Date: 2020/4/27 21:32
+ * @author: hzhq1255
+ * @mail: hzhq1255@163.com
+ * @date: 2020/4/27 21:32
  */
 @RestController
 @RequestMapping("/api")
@@ -37,11 +37,11 @@ public class CollectController {
     public Result getAllCollectByUserId(@RequestParam("userId") @NotNull Integer userId,
                                         @RequestParam("currentPage") @NotNull Integer currentPage,
                                         @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (userId <= 0 || userId == null){
+        if (userId <= 0 ){
             return Result.build(400,"用户名不能为空");
-        }else if (currentPage == null || currentPage == 0) {
+        }else if (currentPage == 0) {
             return Result.build(400, "当前页面参数不能为空");
-        }else if (pageSize == null || pageSize == 0 ){
+        }else if ( pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
         if (pageSize < DEFAULT_PAGE_SIZE ){
@@ -51,15 +51,15 @@ public class CollectController {
         return Result.success(data);
     }
 
-    @RequestMapping(value = "/getAllByUserName",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllCollectByUserName",method = {RequestMethod.GET})
     public Result getAllByUserName(@RequestParam("userName") @NotNull String userName,
                                    @RequestParam("currentPage") @NotNull Integer currentPage,
                                    @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (userName.isEmpty() || userName == null){
+        if (userName.isEmpty() ){
             return Result.build(400,"用户名不能为空");
-        }else if (currentPage == null || currentPage == 0) {
+        }else if ( currentPage == 0) {
             return Result.build(400, "当前页面参数不能为空");
-        }else if (pageSize == null || pageSize == 0 ){
+        }else if ( pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
         if (pageSize < DEFAULT_PAGE_SIZE ){

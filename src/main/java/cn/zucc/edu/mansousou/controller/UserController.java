@@ -14,9 +14,9 @@ import java.util.HashMap;
 
 
 /**
- * @author hzhq1255
- * @mail hzhq1255@163.com
- * @Date: 2020/4/27 17:26
+ * @author: hzhq1255
+ * @mail: hzhq1255@163.com
+ * @date: 2020/4/27 17:26
  */
 @RestController
 @RequestMapping("/api")
@@ -33,7 +33,7 @@ public class UserController {
     public Result getInfo(){
         Result result = new Result();
         result.setCode(20000);
-        HashMap<String,Object> hashMap = new HashMap<String, Object>();
+        HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("roles",new String[]{"admin"});
         hashMap.put("introduction","I am a super administrator");
         hashMap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
@@ -45,10 +45,10 @@ public class UserController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result login(@RequestParam("username") @NotNull String username,
                         @RequestParam("password") @NotNull String password){
-        if (username.isEmpty() || username == null ){
+        if (username.isEmpty()  ){
             return Result.build(400,"用户名为空");
         }
-        if (password.isEmpty() || password == null){
+        if (password.isEmpty() ){
             return Result.build(400,"密码为空");
         }
         Result result = userService.loginCheck(username,password);
@@ -56,7 +56,7 @@ public class UserController {
             return Result.error("用户名或密码错误");
         }
         if (result.getCode() == 200){
-            HashMap<String,Object> hashMap = new HashMap<String, Object>();
+            HashMap<String,Object> hashMap = new HashMap<>();
             hashMap.put("token","admin-token");
             result.setData(hashMap);
         }
@@ -69,13 +69,13 @@ public class UserController {
     public Result reg(@RequestParam("username") @NotNull String username,
                       @RequestParam("password1") @NotNull String password1,
                       @RequestParam("password2") @NotNull String password2){
-        if (username.isEmpty() || username == null){
+        if (username.isEmpty() ){
             return Result.build(400,"用户名为空");
         }
-        if (password1.isEmpty() || password1 == null){
+        if (password1.isEmpty() ){
             return Result.build(400,"密码为空");
         }
-        if (password2.isEmpty() || password2 == null){
+        if (password2.isEmpty() ){
             return Result.build(400,"密码为空");
         }
         return userService.regUser(username,password1,password2);
