@@ -26,5 +26,5 @@ public interface CollectService {
      * @param pageSize
      * @return
      */
-    Page<Collect> getAllByUserId(Integer userId,Integer currentPage,Integer pageSize);
+    Page<Collect> getAllByUserId(Integer userId, Integer currentPage, Integer pageSize);
 }

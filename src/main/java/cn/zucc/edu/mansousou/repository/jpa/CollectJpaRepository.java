@@ -21,7 +21,7 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      * @param pageable
      * @return
      */
-    @Query("select collect from Collect collect where collect.userId =:userId order by collect.createTime desc ")
+    @Query("select collect from Collect collect where collect.userId =:userId order by collect.updateTime desc ")
     Page<Collect> selectAllByUserId(@Param("userId") Integer userId, Pageable pageable);
 
     /**
@@ -30,6 +30,6 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      * @param pageable
      * @return
      */
-    @Query("select collect from Collect collect where collect.userId =:userName order by collect.createTime desc ")
+    @Query("select collect from Collect collect where collect.userId =:userName order by collect.updateTime desc ")
     Page<Collect> selectAllByUserName(@Param("userName") String userName, Pageable pageable);
 }

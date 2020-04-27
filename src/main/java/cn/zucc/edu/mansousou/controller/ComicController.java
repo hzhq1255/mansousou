@@ -4,6 +4,7 @@ import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import cn.zucc.edu.mansousou.service.impl.ComicServiceImpl;
 import cn.zucc.edu.mansousou.service.inter.ComicService;
+import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 @RequestMapping("/api")
 public class ComicController {
 
+    private static final Integer DEFAULT_PAGE_SIZE = 10;
     ComicService comicService;
 
     @Autowired
@@ -42,17 +44,11 @@ public class ComicController {
         }else if (pageSize == null || pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < 10 ){
-            pageSize = 10;
+        if (pageSize < DEFAULT_PAGE_SIZE ){
+            pageSize = DEFAULT_PAGE_SIZE;
         }
-        HashMap<String,Object> hashMap = new HashMap<>();
-        Page<ComicEs> comics = comicService.searchComic(keyword,currentPage-1,pageSize);
-        hashMap.put("currentPage",currentPage);
-        hashMap.put("pageSize",pageSize);
-        hashMap.put("totalElements",comics.getTotalElements());
-        hashMap.put("totalPages",comics.getTotalPages());
-        hashMap.put("content",comics.getContent());
-        return Result.success(hashMap);
+        Object data = PageUtil.getPageData(comicService.searchComic(keyword,currentPage-1,pageSize));
+        return Result.success(data);
     }
 
     @RequestMapping(value = "/getAllComics",method = {RequestMethod.GET,RequestMethod.POST})
@@ -64,16 +60,10 @@ public class ComicController {
         if (pageSize == null || pageSize == 0){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < 10){
-            pageSize = 10;
+        if (pageSize < DEFAULT_PAGE_SIZE){
+            pageSize = DEFAULT_PAGE_SIZE;
         }
-        HashMap<String,Object> hashMap = new HashMap<>();
-        Page<Comic> comics = comicService.getAllComics(currentPage-1,pageSize);
-        hashMap.put("currentPage",currentPage);
-        hashMap.put("pageSize",pageSize);
-        hashMap.put("totalComics",comics.getTotalElements());
-        hashMap.put("totalPages",comics.getTotalPages());
-        hashMap.put("content",comics.getContent());
-        return Result.success(hashMap);
+        Object data = PageUtil.getPageData(comicService.getAllComics(currentPage-1,pageSize));
+        return Result.success(data);
     }
 }

@@ -24,4 +24,75 @@ public class Collect {
     private String url;
     private Date createTime;
     private Date updateTime;
+
+
+    public Integer getCollectId() {
+        return collectId;
+    }
+
+    public void setCollectId(Integer collectId) {
+        this.collectId = collectId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getComicId() {
+        return comicId;
+    }
+
+    public void setComicId(String comicId) {
+        this.comicId = comicId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Collect{" +
+                "collectId=" + collectId +
+                ", userId=" + userId +
+                ", comicId='" + comicId + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
 }

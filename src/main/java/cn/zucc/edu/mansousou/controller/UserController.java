@@ -29,6 +29,19 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping(value ="/getInfo",method = {RequestMethod.GET})
+    public Result getInfo(){
+        Result result = new Result();
+        result.setCode(20000);
+        HashMap<String,Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("roles",new String[]{"admin"});
+        hashMap.put("introduction","I am a super administrator");
+        hashMap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        hashMap.put("name","Super Admin");
+        result.setData(hashMap);
+        return result;
+    }
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result login(@RequestParam("username") @NotNull String username,
                         @RequestParam("password") @NotNull String password){
@@ -50,18 +63,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value ="/getInfo",method = {RequestMethod.GET})
-    public Result getInfo(){
-        Result result = new Result();
-        result.setCode(20000);
-        HashMap<String,Object> hashMap = new HashMap<String, Object>();
-        hashMap.put("roles",new String[]{"admin"});
-        hashMap.put("introduction","I am a super administrator");
-        hashMap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        hashMap.put("name","Super Admin");
-        result.setData(hashMap);
-        return result;
-    }
+
 
     @RequestMapping(value = "/reg",method = RequestMethod.POST)
     public Result reg(@RequestParam("username") @NotNull String username,

@@ -3,6 +3,7 @@ package cn.zucc.edu.mansousou.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * json结果集
  */
 @Data
+@Component
 public class Result implements Serializable {
 
     /**
@@ -36,6 +38,35 @@ public class Result implements Serializable {
      * 响应数据
      */
     private Object data;
+
+
+    public static ObjectMapper getMAPPER() {
+        return MAPPER;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 
     public static Result build(Integer code, String msg, Object data) {
         return new Result(code, msg, data);

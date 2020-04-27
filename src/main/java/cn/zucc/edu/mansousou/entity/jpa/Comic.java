@@ -34,7 +34,8 @@ import java.util.Date;
 public class Comic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @Column(name = "id")
+    private String comicId;
     private String title;
     private String pics;
     private String url;
@@ -48,4 +49,127 @@ public class Comic {
     private String genre;
     private Date createTime;
     private Date updateTime;
+
+    public String getComicId() {
+        return comicId;
+    }
+
+    public void setComicId(String comicId) {
+        this.comicId = comicId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPics() {
+        return pics;
+    }
+
+    public void setPics(String pics) {
+        this.pics = pics;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getHot() {
+        return hot;
+    }
+
+    public void setHot(String hot) {
+        this.hot = hot;
+    }
+
+    public Integer getCollect() {
+        return collect;
+    }
+
+    public void setCollect(Integer collect) {
+        this.collect = collect;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Comic{" +
+                "comicId='" + comicId + '\'' +
+                ", title='" + title + '\'' +
+                ", pics='" + pics + '\'' +
+                ", url='" + url + '\'' +
+                ", rate='" + rate + '\'' +
+                ", desc='" + desc + '\'' +
+                ", author='" + author + '\'' +
+                ", hot='" + hot + '\'' +
+                ", collect=" + collect +
+                ", status='" + status + '\'' +
+                ", genre='" + genre + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

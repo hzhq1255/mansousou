@@ -2,7 +2,6 @@ package cn.zucc.edu.mansousou.service.impl;
 
 import cn.zucc.edu.mansousou.entity.jpa.Collect;
 import cn.zucc.edu.mansousou.repository.jpa.CollectJpaRepository;
-import cn.zucc.edu.mansousou.repository.jpa.ComicJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.CollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
