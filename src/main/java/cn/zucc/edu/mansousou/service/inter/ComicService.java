@@ -4,6 +4,8 @@ import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import org.springframework.data.domain.Page;
 
+import java.io.IOException;
+
 /**
  * @author hzhq1255
  * @mail hzhq1255@163.com
@@ -17,7 +19,7 @@ public interface ComicService {
      * @param pageSize
      * @return
      */
-    Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize);
+    Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize) throws IOException;
 
     /**
      * 通过 jpa 获取所有的 漫画

@@ -2,6 +2,7 @@ package cn.zucc.edu.mansousou.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  *
  * json结果集
  */
+@Data
 public class Result implements Serializable {
 
     /**
@@ -23,7 +25,7 @@ public class Result implements Serializable {
     /**
      * 响应业务状态
      */
-    private Integer status;
+    private Integer code;
 
     /**
      * 响应消息
@@ -35,8 +37,8 @@ public class Result implements Serializable {
      */
     private Object data;
 
-    public static Result build(Integer status, String msg, Object data) {
-        return new Result(status, msg, data);
+    public static Result build(Integer code, String msg, Object data) {
+        return new Result(code, msg, data);
     }
 
     public static Result success(Object data) {
@@ -62,39 +64,15 @@ public class Result implements Serializable {
         return new Result(status, msg, null);
     }
 
-    public Result(Integer status, String msg, Object data) {
-        this.status = status;
+    public Result(Integer code, String msg, Object data) {
+        this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
     public Result(Object data) {
-        this.status = 200;
+        this.code = 200;
         this.msg = "success";
-        this.data = data;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
         this.data = data;
     }
 
@@ -161,7 +139,7 @@ public class Result implements Serializable {
                 obj = MAPPER.readValue(data.traverse(),
                         MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
             }
-            return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj);
+            return build(jsonNode.get("code").intValue(), jsonNode.get("msg").asText(), obj);
         } catch (Exception e) {
             return null;
         }

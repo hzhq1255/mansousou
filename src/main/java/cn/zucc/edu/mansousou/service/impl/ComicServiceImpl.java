@@ -7,11 +7,14 @@ import cn.zucc.edu.mansousou.repository.jpa.ComicJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.ComicService;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * @author hzhq1255
@@ -36,10 +39,11 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize){
+    public Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        builder.should(QueryBuilders.matchPhraseQuery("title",keyword).boost(2f));
+        builder.should(QueryBuilders.matchPhraseQuery("title",keyword).boost(5f));
+        builder.should(QueryBuilders.matchPhraseQuery("desc",keyword).boost(1f));
         return comicEsRepository.search(builder,pageable);
     }
 

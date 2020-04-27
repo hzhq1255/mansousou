@@ -3,6 +3,7 @@ package cn.zucc.edu.mansousou.controller;
 import cn.zucc.edu.mansousou.service.inter.UserService;
 import cn.zucc.edu.mansousou.util.Result;
 import javax.validation.constraints.NotNull;
+import java.lang.String;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,14 +39,27 @@ public class UserController {
             return Result.build(400,"密码为空");
         }
         Result result = userService.loginCheck(username,password);
-        if (result.getStatus() == 400){
+        if (result.getCode() == 400){
             return Result.error("用户名或密码错误");
         }
-        if (result.getStatus() == 200){
+        if (result.getCode() == 200){
             HashMap<String,Object> hashMap = new HashMap<String, Object>();
             hashMap.put("token","admin-token");
             result.setData(hashMap);
         }
+        return result;
+    }
+
+    @RequestMapping(value ="/getInfo",method = {RequestMethod.GET})
+    public Result getInfo(){
+        Result result = new Result();
+        result.setCode(20000);
+        HashMap<String,Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("roles",new String[]{"admin"});
+        hashMap.put("introduction","I am a super administrator");
+        hashMap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        hashMap.put("name","Super Admin");
+        result.setData(hashMap);
         return result;
     }
 

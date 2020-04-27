@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -23,13 +24,17 @@ import java.util.HashMap;
 @RequestMapping("/api")
 public class ComicController {
 
-    @Autowired
     ComicService comicService;
+
+    @Autowired
+    public void setComicService(ComicService comicService) {
+        this.comicService = comicService;
+    }
 
     @RequestMapping(value = "/searchComic",method = {RequestMethod.GET,RequestMethod.POST})
     public Result searchComic(@RequestParam("keyword") String keyword,
                               @RequestParam("currentPage") Integer currentPage,
-                              @RequestParam("pageSize") Integer pageSize){
+                              @RequestParam("pageSize") Integer pageSize) throws IOException {
         if (keyword.isEmpty() || keyword.equalsIgnoreCase("")){
             return Result.build(400,"查询关键字不能为空");
         }else if (currentPage == null || currentPage == 0) {
@@ -63,9 +68,9 @@ public class ComicController {
             pageSize = 10;
         }
         HashMap<String,Object> hashMap = new HashMap<>();
+        Page<Comic> comics = comicService.getAllComics(currentPage-1,pageSize);
         hashMap.put("currentPage",currentPage);
         hashMap.put("pageSize",pageSize);
-        Page<Comic> comics = comicService.getAllComics(currentPage-1,pageSize);
         hashMap.put("totalComics",comics.getTotalElements());
         hashMap.put("totalPages",comics.getTotalPages());
         hashMap.put("content",comics.getContent());
