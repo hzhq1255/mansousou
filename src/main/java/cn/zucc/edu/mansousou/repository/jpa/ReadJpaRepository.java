@@ -1,11 +1,16 @@
 package cn.zucc.edu.mansousou.repository.jpa;
 
 import cn.zucc.edu.mansousou.entity.jpa.Read;
+import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,12 +42,33 @@ public interface ReadJpaRepository extends JpaRepository<Read,Integer> {
      * @param readId
      * @return
      */
-    Read deleteByReadId(Integer readId);
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    void deleteByReadId(Integer readId);
 
     /**
      * 删除某一用户下的所有浏览记录
      * @param userId
      * @return
      */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
     List<Read> deleteAllByUserId(Integer userId);
+
+    /**
+     * 修改浏览历史
+     * @param readId
+     * @param chapterId
+     * @param chapter
+     * @param url
+     * @param updateTime
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    @Query("update Read read set read.chapterId =:chapterId , read.chapter =:chapter, " +
+            "read.url =:url , read.updateTime =:updateTime where read.readId =:readId")
+    void updateRead(@Param("readId") Integer readId, @Param("chapterId") String chapterId,
+                      @Param("chapter") String chapter, @Param("url") String url,
+                      @Param("updateTime")Date updateTime);
 }

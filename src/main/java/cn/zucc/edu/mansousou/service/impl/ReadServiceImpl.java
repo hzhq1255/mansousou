@@ -54,16 +54,11 @@ public class ReadServiceImpl implements ReadService {
 
     @Override
     public Result updateRead(Read read) {
-        readJpaRepository.save(read);
+        readJpaRepository.updateRead(read.getReadId(),read.getChapterId(),read.getChapter(),
+                read.getUrl(),read.getUpdateTime());
         return Result.success(read.getReadId());
     }
 
-    @Override
-    public Result updateAllRead(List<Read> reads) {
-        readJpaRepository.saveAll(reads);
-        List<Integer> readIds = reads.stream().map(e -> e.getReadId()).collect(Collectors.toList());
-        return Result.success(readIds);
-    }
 
     @Override
     public Result addRead(Read read) {

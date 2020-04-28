@@ -52,12 +52,6 @@ public interface ReadService {
     Result updateRead(Read read);
 
     /**
-     * 批量修改记录
-     * @param reads
-     * @return
-     */
-    Result updateAllRead(List<Read> reads);
-    /**
      * 增加阅读信息
      * @param read
      * @return

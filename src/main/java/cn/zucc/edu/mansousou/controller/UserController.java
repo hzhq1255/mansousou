@@ -41,8 +41,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public Result login(@RequestParam("username") @NotNull String username,
-                        @RequestParam("password") @NotNull String password){
+    public Result login(@RequestParam(value = "username") @NotNull String username,
+                        @RequestParam(value = "password") @NotNull String password){
         if (username.isEmpty()  ){
             return Result.build(400,"用户名为空");
         }

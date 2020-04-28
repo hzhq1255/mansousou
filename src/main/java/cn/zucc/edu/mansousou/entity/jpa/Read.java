@@ -23,7 +23,6 @@ public class Read {
     private String chapter;
     private String comicId;
     private String title;
-    private String no;
     private String url;
     private Date createTime;
     private Date updateTime;
