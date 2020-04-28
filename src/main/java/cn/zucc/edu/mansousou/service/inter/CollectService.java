@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.service.inter;
 
 import cn.zucc.edu.mansousou.entity.jpa.Collect;
+import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
 
 /**
@@ -27,4 +28,40 @@ public interface CollectService {
      * @return
      */
     Page<Collect> getAllByUserId(Integer userId, Integer currentPage, Integer pageSize);
+
+    /**
+     * 获取所有的收藏
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    Page<Collect> getAll(Integer currentPage,Integer pageSize);
+
+    /**
+     * 添加收藏
+     * @param collect
+     * @return
+     */
+    Result addCollect(Collect collect);
+
+    /**
+     * 修改收藏
+     * @param collect
+     * @return
+     */
+    Result updateCollect(Collect collect);
+
+    /**
+     * 删除收藏
+     * @param collectId
+     * @return
+     */
+    Result deleteCollectByCollectId(Integer collectId);
+
+    /**
+     * 删除用户所有收藏
+     * @param userId
+     * @return
+     */
+    Result deleteAllCollectByUserId(Integer userId);
 }

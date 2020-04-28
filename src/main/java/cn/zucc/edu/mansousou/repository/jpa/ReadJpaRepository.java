@@ -44,7 +44,7 @@ public interface ReadJpaRepository extends JpaRepository<Read,Integer> {
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    void deleteByReadId(Integer readId);
+    Read deleteByReadId(Integer readId);
 
     /**
      * 删除某一用户下的所有浏览记录
@@ -57,6 +57,7 @@ public interface ReadJpaRepository extends JpaRepository<Read,Integer> {
 
     /**
      * 修改浏览历史
+     * jpa 中 删除和修改需要增加 @Modifying 注解
      * @param readId
      * @param chapterId
      * @param chapter
@@ -68,7 +69,7 @@ public interface ReadJpaRepository extends JpaRepository<Read,Integer> {
     @Transactional(rollbackFor=Exception.class)
     @Query("update Read read set read.chapterId =:chapterId , read.chapter =:chapter, " +
             "read.url =:url , read.updateTime =:updateTime where read.readId =:readId")
-    void updateRead(@Param("readId") Integer readId, @Param("chapterId") String chapterId,
+    Read updateRead(@Param("readId") Integer readId, @Param("chapterId") String chapterId,
                       @Param("chapter") String chapter, @Param("url") String url,
                       @Param("updateTime")Date updateTime);
 }

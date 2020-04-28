@@ -4,9 +4,14 @@ import cn.zucc.edu.mansousou.entity.jpa.Collect;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hzhq1255
@@ -32,4 +37,50 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      */
     @Query("select collect from Collect collect where collect.userId =:userName order by collect.updateTime desc ")
     Page<Collect> selectAllByUserName(@Param("userName") String userName, Pageable pageable);
+
+    /**
+     * 获取所有订阅
+     * @param pageable
+     * @return
+     */
+    @Query("select collect from Collect collect order by collect.updateTime desc ")
+    Page<Collect> selectAll(Pageable pageable);
+
+    /**
+     * 订阅修改
+     * @param collectId
+     * @param comicId
+     * @param title
+     * @param url
+     * @param updateTime
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    @Query("update Collect collect set collect.comicId =: comicId, " +
+            "collect.title =: title, collect.url =: url, collect.updateTime =: updateTime " +
+            "where collect.collectId =: collectId")
+    Collect updateCollect(@Param("collectId") Integer collectId,
+                          @Param("comicId") String comicId,
+                          @Param("title") String title,
+                          @Param("url") String url,
+                          @Param("updateTime")Date updateTime);
+
+    /**
+     * 删除收藏
+     * @param collectId
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    Collect deleteByCollectId(Integer collectId);
+
+    /**
+     * 删除用户收藏
+     * @param userId
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    List<Collect> deleteAllByUserId(Integer userId);
 }

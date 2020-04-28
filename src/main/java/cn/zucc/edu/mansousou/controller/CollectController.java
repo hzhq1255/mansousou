@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,9 +37,9 @@ public class CollectController {
                                         @RequestParam("pageSize") @NotNull Integer pageSize){
         if (userId <= 0 ){
             return Result.build(400,"用户名不能为空");
-        }else if (currentPage == 0) {
+        }else if (currentPage <= 0) {
             return Result.build(400, "当前页面参数不能为空");
-        }else if ( pageSize == 0 ){
+        }else if ( pageSize <= 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE ){
@@ -54,9 +55,9 @@ public class CollectController {
                                    @RequestParam("pageSize") @NotNull Integer pageSize){
         if (userName.isEmpty() ){
             return Result.build(400,"用户名不能为空");
-        }else if ( currentPage == 0) {
+        }else if ( currentPage <= 0) {
             return Result.build(400, "当前页面参数不能为空");
-        }else if ( pageSize == 0 ){
+        }else if ( pageSize <= 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE ){
@@ -64,5 +65,54 @@ public class CollectController {
         }
         Object data = PageUtil.getPageData(collectService.getAllByUserName(userName, currentPage-1, pageSize));
         return Result.success(data);
+    }
+
+    @RequestMapping(value = "/getAllCollect",method = {RequestMethod.GET})
+    public Result getAll(@RequestParam("currentPage") @NotNull Integer currentPage,
+                         @RequestParam("pageSize") @NotNull Integer pageSize){
+        if (currentPage <= 0 || pageSize <= 0){
+            return Result.error("参数错误");
+        }
+        Object data = PageUtil.getPageData(collectService.getAll(currentPage-1, pageSize));
+        return Result.success(data);
+    }
+
+    @RequestMapping(value = "/addCollect",method = {RequestMethod.POST})
+    public Result addCollect(@RequestParam("userId") @NotNull Integer userId,
+                             @RequestParam("comicId") @NotNull String comicId,
+                             @RequestParam("title") @NotNull String title,
+                             @RequestParam("url") @NotNull String url){
+        Collect collect = new Collect();
+        collect.setUserId(userId);
+        collect.setComicId(comicId);
+        collect.setTitle(title);
+        collect.setUrl(url);
+        collect.setCreateTime(new Date());
+        collect.setUpdateTime(new Date());
+        return collectService.addCollect(collect);
+    }
+
+    @RequestMapping(value = "/updateCollect",method = {RequestMethod.POST})
+    public Result updateCollect(@RequestParam("collectId") @NotNull Integer collectId,
+                                @RequestParam("comicId") @NotNull String comicId,
+                                @RequestParam("title") @NotNull String title,
+                                @RequestParam("url") @NotNull String url){
+        Collect collect = new Collect();
+        collect.setCollectId(collectId);
+        collect.setComicId(comicId);
+        collect.setTitle(title);
+        collect.setUrl(url);
+        collect.setUpdateTime(new Date());
+        return collectService.updateCollect(collect);
+    }
+
+    @RequestMapping(value = "/deleteCollectByCollectId",method = {RequestMethod.POST})
+    public Result deleteCollectByCollectId(@RequestParam("collectId") @NotNull Integer collectId){
+        return collectService.deleteCollectByCollectId(collectId);
+    }
+
+    @RequestMapping(value = "/deleteAllCollectByUserId",method = {RequestMethod.POST})
+    public Result deleteAllCollectByUserId(@RequestParam("userId") @NotNull Integer userId){
+        return collectService.deleteAllCollectByUserId(userId);
     }
 }
