@@ -21,6 +21,9 @@ public class Read {
     private Integer userId;
     private String chapterId;
     private String chapter;
+    private String comicId;
+    private String title;
+    private String no;
     private String url;
     private Date createTime;
     private Date updateTime;

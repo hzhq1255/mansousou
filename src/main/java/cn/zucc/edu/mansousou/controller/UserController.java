@@ -5,10 +5,7 @@ import cn.zucc.edu.mansousou.util.Result;
 import javax.validation.constraints.NotNull;
 import java.lang.String;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -20,6 +17,7 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class UserController {
 
     UserService userService;
@@ -52,11 +50,11 @@ public class UserController {
             return Result.build(400,"密码为空");
         }
         Result result = userService.loginCheck(username,password);
-        if (result.getCode() == 400){
+        if (result.getCode().equals(Result.error().getCode())){
             return Result.error("用户名或密码错误");
         }
-        if (result.getCode() == 200){
-            HashMap<String,Object> hashMap = new HashMap<>();
+        if (result.getCode().equals(Result.success().getCode())){
+            HashMap<String,Object> hashMap = new HashMap<>(1);
             hashMap.put("token","admin-token");
             result.setData(hashMap);
         }

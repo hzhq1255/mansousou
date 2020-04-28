@@ -52,5 +52,8 @@ public class UserServiceImpl implements UserService {
         return Result.build(400,"该用户已存在");
     }
 
-
+    @Override
+    public boolean isExist(Integer userId) {
+        return userJpaRepository.findByUserId(userId).equals(null)?false:true;
+    }
 }

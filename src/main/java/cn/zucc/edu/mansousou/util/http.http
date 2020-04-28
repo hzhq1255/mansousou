@@ -1,0 +1,10 @@
+GET http://localhost:8443/api/searchComic
+Content-Type: application/json
+
+{
+  "keyword": "test",
+  "currentPage": 1,
+  "pageSize": 10
+}
+
+###

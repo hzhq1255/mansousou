@@ -1,17 +1,12 @@
 package cn.zucc.edu.mansousou.controller;
 
-import cn.zucc.edu.mansousou.entity.es.ComicEs;
-import cn.zucc.edu.mansousou.entity.jpa.Comic;
-import cn.zucc.edu.mansousou.service.impl.ComicServiceImpl;
+
 import cn.zucc.edu.mansousou.service.inter.ComicService;
 import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StopWatch;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,9 +18,9 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ComicController {
 
-    private static final Integer DEFAULT_PAGE_SIZE = 10;
     ComicService comicService;
 
     @Autowired
@@ -44,10 +39,14 @@ public class ComicController {
         }else if (pageSize == null || pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE ){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE ){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
-        Object data = PageUtil.getPageData(comicService.searchComic(keyword,currentPage-1,pageSize));
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        HashMap<String,Object> data = PageUtil.getPageData(comicService.searchComic(keyword,currentPage-1,pageSize));
+        stopWatch.stop();
+        data.put("searchTime",stopWatch.getTotalTimeMillis());
         return Result.success(data);
     }
 
@@ -60,8 +59,8 @@ public class ComicController {
         if (pageSize == null || pageSize == 0){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(comicService.getAllComics(currentPage-1,pageSize));
         return Result.success(data);

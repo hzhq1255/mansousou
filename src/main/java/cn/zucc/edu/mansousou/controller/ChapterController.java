@@ -4,10 +4,7 @@ import cn.zucc.edu.mansousou.service.inter.ChapterService;
 import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,8 +15,8 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ChapterController {
-    private static final Integer DEFAULT_PAGE_SIZE = 10;
     ChapterService chapterService;
 
     @Autowired
@@ -34,8 +31,8 @@ public class ChapterController {
         if (comicId.isEmpty() || currentPage == 0  || pageSize == 0 ){
             return Result.error("无效参数");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(chapterService.searchAllChapterByComicId(comicId, currentPage-1, pageSize));
         return Result.success(data);
@@ -47,8 +44,8 @@ public class ChapterController {
         if (currentPage == 0 || pageSize == 0 ){
             return Result.error("无效参数");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(chapterService.getAllChapter(currentPage-1, pageSize));
         return Result.success(data);

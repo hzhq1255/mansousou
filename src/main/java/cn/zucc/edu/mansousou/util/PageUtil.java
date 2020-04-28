@@ -13,15 +13,16 @@ import java.util.HashMap;
  */
 @Data
 @Component
-public class PageUtil{
+public class PageUtil extends HashMap<String,Object>{
 
+    public static final Integer DEFAULT_PAGE_SIZE = 10;
     private Integer currentPage;
     private Integer pageSize;
     private Integer totalElements;
     private Integer totalPages;
     private Object content;
 
-    public static Object getPageData(Page<?> page){
+    public static HashMap<String, Object> getPageData(Page<?> page){
         HashMap<String,Object> hashMap = new HashMap<>(5);
         hashMap.put("currentPage",page.getPageable().getPageNumber()+1);
         hashMap.put("pageSize",page.getPageable().getPageSize());

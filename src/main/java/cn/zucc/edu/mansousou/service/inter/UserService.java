@@ -25,4 +25,11 @@ public interface UserService {
      * @return
      */
     Result regUser(String username,String password1,String password2);
+
+    /**
+     * 判断用户是否存在
+     * @param userId
+     * @return
+     */
+    boolean isExist(Integer userId);
 }

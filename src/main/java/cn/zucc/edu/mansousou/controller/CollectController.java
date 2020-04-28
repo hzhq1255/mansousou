@@ -7,10 +7,7 @@ import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -23,9 +20,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class CollectController {
 
-    private static final Integer DEFAULT_PAGE_SIZE = 10;
     CollectService collectService;
 
     @Autowired
@@ -44,8 +41,8 @@ public class CollectController {
         }else if ( pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE ){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE ){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(collectService.getAllByUserId(userId, currentPage-1, pageSize));
         return Result.success(data);
@@ -62,8 +59,8 @@ public class CollectController {
         }else if ( pageSize == 0 ){
             return Result.build(400,"页面尺寸不能为空");
         }
-        if (pageSize < DEFAULT_PAGE_SIZE ){
-            pageSize = DEFAULT_PAGE_SIZE;
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE ){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(collectService.getAllByUserName(userName, currentPage-1, pageSize));
         return Result.success(data);
