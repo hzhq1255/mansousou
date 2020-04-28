@@ -63,7 +63,7 @@ api地址 http://localhost:8443/api
         "pageSize":10,
         "currentPage":1,
         "content":[
-            // Read Object List
+            " Read Object List"
         ]
     }
 }
@@ -95,7 +95,7 @@ api地址 http://localhost:8443/api
         "pageSize":10,
         "currentPage":1,
         "content":[
-            // Read Object List
+            " Read Object List"
         ]
     }
 }
@@ -119,7 +119,7 @@ api地址 http://localhost:8443/api
 {
     "code": "",
     "msg": "",
-    "data": // if successfully add then return readId
+    "data": "if successfully add then return readId"
 }
 ```
 
@@ -144,7 +144,7 @@ api地址 http://localhost:8443/api
 {
     "code": "",
     "msg": "",
-    "data": // if successfully update then return readId
+    "data": "if successfully update then return readId"
 }
 ```
 
@@ -167,7 +167,7 @@ api地址 http://localhost:8443/api
 {
     "code": "",
     "msg": "",
-    "data": // if successfully delete then return readId
+    "data": "if successfully delete then return readId"
 }
 ```
 
@@ -187,7 +187,7 @@ api地址 http://localhost:8443/api
 {
     "code": "",
     "msg": "",
-    "data": // if successfully delete then return a list<Integer> readIds
+    "data": "if successfully delete then return a list<Integer> readIds"
 }
 ```
 
