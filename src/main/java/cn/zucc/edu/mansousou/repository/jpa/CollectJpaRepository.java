@@ -57,9 +57,9 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    @Query("update Collect collect set collect.comicId =: comicId, " +
-            "collect.title =: title, collect.url =: url, collect.updateTime =: updateTime " +
-            "where collect.collectId =: collectId")
+    @Query("update Collect collect set collect.comicId =:comicId, " +
+            "collect.title =:title, collect.url =:url, collect.updateTime =:updateTime " +
+            "where collect.collectId =:collectId")
     Integer updateCollect(@Param("collectId") Integer collectId,
                           @Param("comicId") String comicId,
                           @Param("title") String title,

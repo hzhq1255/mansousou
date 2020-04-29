@@ -53,11 +53,6 @@ public class UserController {
         if (result.getCode().equals(Result.error().getCode())){
             return Result.error("用户名或密码错误");
         }
-        if (result.getCode().equals(Result.success().getCode())){
-            HashMap<String,Object> hashMap = new HashMap<>(1);
-            hashMap.put("token","admin-token");
-            result.setData(hashMap);
-        }
         return result;
     }
 

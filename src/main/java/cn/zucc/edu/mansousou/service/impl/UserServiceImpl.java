@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public Result loginCheck(String username, String password) {
         User user = userJpaRepository.findByUserName(username);
         if (user.getPassword().equalsIgnoreCase(password)){
-            return Result.build(200,"success",null);
+            return Result.build(200,"success",user.getUserId());
         }else {
             return Result.error();
         }
