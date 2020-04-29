@@ -73,7 +73,7 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    Collect deleteByCollectId(Integer collectId);
+    Integer deleteByCollectId(Integer collectId);
 
     /**
      * 删除用户收藏

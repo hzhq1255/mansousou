@@ -31,10 +31,169 @@ api地址 http://localhost:8443/api
 
 ### 3.CollectController
 
-| 接口                     | 参数                                                 | 返回数据                   |
-| ------------------------ | ---------------------------------------------------- | -------------------------- |
-| /getAllCollectByUserName | String userName,Integer currentPage,Integer pageSize | 通过用户名获得所有收藏数据 |
-| /getAllCollectByUserId   | Integer userId,Integer currentPage,Integer pageSize  | 通过用户id获得所有收藏数据 |
+#### /getAllCollectByUserName
+
+**Desc**: 通过userName获得收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            " Collect Object List"
+        ]
+    }
+}
+```
+
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| userName    | String | 否       |      |
+| currentPage | String | 否       |      |
+| pageSize    | String | 否       |      |
+
+#### /getAllCollectByUserId
+**Desc**: 通过userId获得收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            " Collect Object List"
+        ]
+    }
+}
+```
+
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| userId    | Integer | 否       |      |
+| currentPage | String | 否       |      |
+| pageSize    | String | 否       |      |
+
+#### /getAllCollect
+**Desc**: 获取所有收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            " Collect Object List"
+        ]
+    }
+}
+```
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| currentPage | String | 否       |      |
+| pageSize    | String | 否       |      |
+
+#### /addCollect
+**Desc**: 获取所有收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":"add CollectId"
+}
+```
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| userId    | Integer | 否       |      |
+| comicId    | String | 否       |      |
+| title | String | 否       |漫画名称      |
+| url    | String | 否       |漫画链接      |
+
+#### /updateCollect
+**Desc**: 修改收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":"update CollectId"
+}
+```
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| collectId    | Integer | 否       |      |
+| comicId    | String | 否       |      |
+| title | String | 否       |漫画名称      |
+| url    | String | 否       |漫画链接      |
+
+#### /deleteAllCollectByUserId
+**Desc**: 删除用户的所有收藏
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":"delete collectIds"
+}
+```
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| userId    | Integer | 否       |      |
+
+#### /deleteCollectByCollectId
+**Desc**:  删除单个收藏
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":"delete CollectId"
+}
+```
+| 参数        | 类型   | 可否为空 | 描述 |
+| ----------- | ------ | -------- | ---- |
+| collectId    | Integer | 否       |      |
 
 ### 4.ChapterController
 
