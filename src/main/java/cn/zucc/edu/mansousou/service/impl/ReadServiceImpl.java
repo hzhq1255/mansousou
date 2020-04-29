@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +66,29 @@ public class ReadServiceImpl implements ReadService {
     public Result addRead(Read read) {
         readJpaRepository.save(read);
         return Result.success(read.getReadId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result recordRead(Read read) {
+        Read needRecord = readJpaRepository.findByUserIdAndComicId(read.getUserId(),read.getComicId());
+        if (needRecord != null){
+            if (read.getChapter() == null && read.getChapterId() == null && read.getUrl() == null){
+                readJpaRepository.updateReadTime(read.getUserId(),read.getComicId(),read.getUpdateTime());
+            }else if (read.getChapter() != null && read.getChapterId() != null && read.getUrl() != null){
+                readJpaRepository.updateRead(needRecord.getReadId(),read.getChapterId(),read.getChapter(),
+                        read.getUrl(),read.getUpdateTime());
+            }else {
+                return Result.error("参数错误");
+            }
+            return Result.success("update "+needRecord.getUserId()+needRecord.getComicId());
+        }else {
+            if (read.getTitle() == null){
+                return Result.success("请增加漫画名");
+            }
+            readJpaRepository.save(read);
+            return Result.success("add "+needRecord.getUserId()+needRecord.getComicId());
+        }
     }
 
     @Override

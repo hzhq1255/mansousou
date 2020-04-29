@@ -64,4 +64,11 @@ public interface ReadService {
      * @return
      */
     boolean isExist(Integer readId);
+
+    /**
+     * 记录历史
+     * @param read
+     * @return
+     */
+    Result recordRead(Read read);
 }

@@ -65,6 +65,24 @@ public class ReadController {
         return readService.deleteAllReadByUserId(userId);
     }
 
+    @RequestMapping(value = "/recordRead",method = {RequestMethod.POST})
+    public Result recordRead(@RequestParam("userId") @NotNull Integer userId,
+                             @RequestParam("comicId") @NotNull String comicId,
+                             @RequestParam(value = "chapterId",required = false) String chapterId,
+                             @RequestParam(value = "chapter",required = false) String chapter,
+                             @RequestParam(value = "url",required = false) String url){
+        Read read = new Read();
+        read.setUserId(userId);
+        read.setComicId(comicId);
+        read.setChapterId(chapterId);
+        read.setChapter(chapter);
+        read.setUrl(url);
+        read.setCreateTime(new Date());
+        read.setUpdateTime(new Date());
+        return readService.recordRead(read);
+        //return Result.success(read);
+    }
+
     @RequestMapping(value = "/updateRead",method = {RequestMethod.POST})
     public Result updateRead(@RequestParam(value = "readId") @NotNull Integer readId,
                              @RequestParam(value = "chapterId") @NotNull String chapterId,

@@ -35,4 +35,5 @@ public interface ComicJpaRepository extends JpaRepository<Comic,String> {
      * @return
      */
     Page<Comic> findAllByTitleContains(String title, Pageable pageable);
+
 }

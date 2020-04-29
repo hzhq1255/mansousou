@@ -55,8 +55,8 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": "success",
     "data":{
         "totalPages": 1,
         "totalElements":1,
@@ -87,8 +87,8 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": sucess,
     "data":{
         "totalPages": 1,
         "totalElements":1,
@@ -117,8 +117,8 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": "sucess",
     "data": "if successfully add then return readId"
 }
 ```
@@ -142,8 +142,8 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": "sucess",
     "data": "if successfully update then return readId"
 }
 ```
@@ -165,8 +165,8 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": "success",
     "data": "if successfully delete then return readId"
 }
 ```
@@ -185,10 +185,38 @@ api地址 http://localhost:8443/api
 
 ```json
 {
-    "code": "",
-    "msg": "",
+    "code": 200,
+    "msg": "success",
     "data": "if successfully delete then return a list<Integer> readIds"
 }
 ```
 
-#### 
+| 参数   | 类型    | 可否为空 | 描述 |
+| ------ | ------- | -------- | ---- |
+| userId | Integer | 否       |      |
+
+
+
+#### /recordRead
+
+**Desc**: 记录阅读记录，传入 userId,comicId，如果已存在，只更新时间，如果不存在，创建记录，如果传入完整参数，并且存在更新记录，其他报错A
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": "if successfully record then return readId"
+}
+```
+| 参数      | 类型    | 可否为空 | 描述       |
+| --------- | ------- | -------- | ---------- |
+| userId    | Integer | 否       |            |
+| comicId          | String | 否 |            |
+| title | String | 可 | 最好带上，不能在没有标题的时候插入 |
+| chapterid | String  | 可       | 改变的章节 |
+| chapter   | String  | 可       | 章节名称   |
+| url       | String  | 可       | 章节链接   |

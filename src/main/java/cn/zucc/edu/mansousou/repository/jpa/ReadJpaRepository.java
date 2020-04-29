@@ -69,7 +69,31 @@ public interface ReadJpaRepository extends JpaRepository<Read,Integer> {
     @Transactional(rollbackFor=Exception.class)
     @Query("update Read read set read.chapterId =:chapterId , read.chapter =:chapter, " +
             "read.url =:url , read.updateTime =:updateTime where read.readId =:readId")
-    Read updateRead(@Param("readId") Integer readId, @Param("chapterId") String chapterId,
+    Integer updateRead(@Param("readId") Integer readId, @Param("chapterId") String chapterId,
                       @Param("chapter") String chapter, @Param("url") String url,
                       @Param("updateTime")Date updateTime);
+
+
+    /**
+     * 只是修改浏览时间
+     * @param userId
+     * @param updateTime
+     * @param comicId
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor=Exception.class)
+    @Query("update Read read set read.updateTime =:updateTime "+
+            " where read.userId =:userId and read.comicId =:comicId")
+    Integer updateReadTime(@Param("userId") Integer userId,
+                        @Param("comicId") String comicId,
+                        @Param("updateTime")Date updateTime);
+
+    /**
+     * 通过 userId 和 comicId 查询
+     * @param userId
+     * @param comicId
+     * @return
+     */
+    Read findByUserIdAndComicId(Integer userId,String comicId);
 }

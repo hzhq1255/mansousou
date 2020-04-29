@@ -60,7 +60,7 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
     @Query("update Collect collect set collect.comicId =: comicId, " +
             "collect.title =: title, collect.url =: url, collect.updateTime =: updateTime " +
             "where collect.collectId =: collectId")
-    Collect updateCollect(@Param("collectId") Integer collectId,
+    Integer updateCollect(@Param("collectId") Integer collectId,
                           @Param("comicId") String comicId,
                           @Param("title") String title,
                           @Param("url") String url,
