@@ -90,7 +90,7 @@ public class ReadServiceImpl implements ReadService {
                 return Result.success("请增加链接");
             }
             readJpaRepository.save(read);
-            return Result.success("add "+needRecord.getUserId()+needRecord.getComicId());
+            return Result.success("add a record");
         }
     }
 

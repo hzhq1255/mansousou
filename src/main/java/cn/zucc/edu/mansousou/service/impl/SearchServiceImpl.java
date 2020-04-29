@@ -4,6 +4,7 @@ import cn.zucc.edu.mansousou.entity.jpa.HotSearch;
 import cn.zucc.edu.mansousou.entity.jpa.Search;
 import cn.zucc.edu.mansousou.repository.jpa.SearchJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.SearchService;
+import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,5 +43,15 @@ public class SearchServiceImpl implements SearchService {
     public Page<Search> getAllSearchByUserId(Integer userId, Integer currentPage, Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         return searchJpaRepository.selectAllSearchByUserId(userId,pageable);
+    }
+
+    @Override
+    public Result clearBySearchId(Integer searchId) {
+        return null;
+    }
+
+    @Override
+    public Result clearAllSearchByUserId(Integer userId) {
+        return null;
     }
 }
