@@ -32,4 +32,11 @@ public interface UserService {
      * @return
      */
     boolean isExist(Integer userId);
+
+    /**
+     * 通过 id 获取用户
+     * @param userId
+     * @return
+     */
+    User getUserByUserId(Integer userId);
 }

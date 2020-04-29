@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,14 +11,17 @@ import java.util.Date;
  * @mail hzhq1255@163.com
  * @Date 2020/4/27 20:20
  */
+
 @Data
 @Entity
 @Table(name = "user_read")
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class Read {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer readId;
+    @Column(name = "user_id")
     private Integer userId;
     private String chapterId;
     private String chapter;
@@ -28,11 +32,8 @@ public class Read {
     private Date createTime;
     private Date updateTime;
 
-    public Integer getReadId() {
-        return readId;
-    }
 
-    public void setReadId(Integer readId) {
-        this.readId = readId;
-    }
+
+
+
 }

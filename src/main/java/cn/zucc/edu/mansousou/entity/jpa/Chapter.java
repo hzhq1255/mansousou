@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "comic_chapter")
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,6 @@ public class Chapter {
     private String url;
     private Date createTime;
     private Date updateTime;
+
+
 }

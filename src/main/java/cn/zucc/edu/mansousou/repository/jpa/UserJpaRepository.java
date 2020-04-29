@@ -36,4 +36,5 @@ public interface UserJpaRepository extends JpaRepository<User,Integer> {
      */
     @Query("select user from User user order by user.userId desc ")
     Page<User> selectAll(Pageable pageable);
+
 }

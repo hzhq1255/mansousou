@@ -6,6 +6,7 @@ import cn.zucc.edu.mansousou.service.inter.UserService;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -50,6 +51,14 @@ public class UserServiceImpl implements UserService {
             return Result.build(400,"两次输入密码不一致");
         }
         return Result.build(400,"该用户已存在");
+    }
+
+    @Override
+    @Transactional
+    public User getUserByUserId(Integer userId) {
+        User user = userJpaRepository.findByUserId(userId);
+        Object data = user;
+        return user;
     }
 
     @Override

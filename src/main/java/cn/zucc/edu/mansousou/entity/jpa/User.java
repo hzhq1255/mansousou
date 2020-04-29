@@ -1,10 +1,14 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author hzhq1255
@@ -14,6 +18,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class User {
 
     @Id
@@ -28,54 +33,20 @@ public class User {
     private Date createTime;
     private Date updateTime;
 
-    public Integer getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
-    public String getUserName() {
-        return userName;
-    }
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<Read> read;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<Collect> collect;
 
-    public String getPassword() {
-        return password;
-    }
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<Search> search;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.controller;
 
+import cn.zucc.edu.mansousou.entity.jpa.User;
 import cn.zucc.edu.mansousou.service.inter.UserService;
 import cn.zucc.edu.mansousou.util.Result;
 import javax.validation.constraints.NotNull;
@@ -38,6 +39,11 @@ public class UserController {
         hashMap.put("name","Super Admin");
         result.setData(hashMap);
         return result;
+    }
+
+    @RequestMapping(value = "/getUserInfo",method = {RequestMethod.POST})
+    public User getUserByUserId(@RequestParam(value = "userId") @NotNull Integer userId){
+        return userService.getUserByUserId(userId);
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
