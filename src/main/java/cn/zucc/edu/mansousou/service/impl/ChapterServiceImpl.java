@@ -48,7 +48,7 @@ public class ChapterServiceImpl implements ChapterService {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         builder.must(QueryBuilders.matchPhraseQuery("comic_id",comicId));
-        FieldSortBuilder sortBuilder = SortBuilders.fieldSort("update_time").order(SortOrder.DESC);
+        FieldSortBuilder sortBuilder = SortBuilders.fieldSort("no").order(SortOrder.DESC);
         SearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(builder)
                 .withSort(sortBuilder)
