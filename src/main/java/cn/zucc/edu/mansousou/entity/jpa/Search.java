@@ -21,8 +21,7 @@ public class Search {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer searchId;
     private Integer userId;
-    private String content;
-    private Integer count;
+    private String keyword;
     private Date createTime;
 
     public Integer getSearchId() {
@@ -41,12 +40,12 @@ public class Search {
         this.userId = userId;
     }
 
-    public String getContent() {
-        return content;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public Date getCreateTime() {
@@ -57,12 +56,4 @@ public class Search {
         this.createTime = createTime;
     }
 
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 }

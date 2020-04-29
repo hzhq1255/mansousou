@@ -103,11 +103,11 @@ public class ReadController {
     @RequestMapping(value = "/addRead",method = {RequestMethod.POST})
     public Result addRead(@RequestParam(value = "userId",required = true) @NotNull Integer userId,
                           @RequestParam(value = "comicId",required = true) @NotNull String comicId,
+                          @RequestParam(value = "pics",required = true) String pics ,
                           @RequestParam(value = "title",required = true) @NotNull String title,
                           @RequestParam(value = "chapterId",required = false) String chapterId,
                           @RequestParam(value = "chapter",required = false) String chapter,
-                          @RequestParam(value = "url",required = false) String url,
-                          @RequestParam(value = "pics",required = false) String pics  ){
+                          @RequestParam(value = "url",required = false) String url){
         Read read = new Read();
         read.setUserId(userId);
         read.setComicId(comicId);

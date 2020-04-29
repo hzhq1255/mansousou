@@ -74,10 +74,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/addSearch",method = {RequestMethod.POST})
-    public Result addSearch(@RequestParam("content") @NotNull String content,
+    public Result addSearch(@RequestParam("keyword") @NotNull String keyword,
                             @RequestParam(value = "userId",required = false) Integer userId){
         Search search = new Search();
-        search.setContent(content);
+        search.setKeyword(keyword);
         search.setUserId(userId);
         search.setCreateTime(new Date());
         return searchService.addSearch(search);

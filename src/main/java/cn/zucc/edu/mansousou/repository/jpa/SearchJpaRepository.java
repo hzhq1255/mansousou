@@ -23,11 +23,10 @@ public interface SearchJpaRepository extends JpaRepository<Search,Integer> {
 
     /**
      * 获取搜索量最高的词
-     * @param pageable
      * @return
      */
-    @Query("select s.content,count(s.searchId) from Search s group by s.content order by count(s.searchId) desc ")
-    Page<Object> selectHotSearch(Pageable pageable);
+    @Query("select s.keyword,count(s.searchId) from Search s group by s.keyword order by count(s.searchId) desc ")
+    List<List<Object>> selectHotSearch();
 
     /**
      * 获取所有搜索内容

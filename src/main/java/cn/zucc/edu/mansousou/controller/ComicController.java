@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -63,6 +64,18 @@ public class ComicController {
             pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         Object data = PageUtil.getPageData(comicService.getAllComics(currentPage-1,pageSize));
+        return Result.success(data);
+    }
+
+    @RequestMapping(value = "/getComicByComicId",method = {RequestMethod.GET,RequestMethod.POST})
+    public Result getComicByComicId(@RequestParam("comicId") @NotNull String comicId,
+                                    @RequestParam("currentPage") @NotNull Integer currentPage,
+                                    @RequestParam("pageSize") @NotNull Integer pageSize){
+        if (currentPage <= 0 || pageSize <= 0){
+            return Result.error("参数错误");
+        }
+        pageSize = pageSize <= PageUtil.DEFAULT_PAGE_SIZE ? PageUtil.DEFAULT_PAGE_SIZE: pageSize;
+        Object data = PageUtil.getPageData(comicService.getComicByComicId(comicId,currentPage-1,pageSize));
         return Result.success(data);
     }
 }

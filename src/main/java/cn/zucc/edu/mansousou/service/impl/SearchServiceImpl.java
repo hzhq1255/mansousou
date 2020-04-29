@@ -8,9 +8,14 @@ import cn.zucc.edu.mansousou.service.inter.SearchService;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.net.ssl.HostnameVerifier;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: hzhq1255
@@ -31,10 +36,16 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public Page<HotSearch> getHotSearch(Integer currentPage, Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
-        Object test = searchJpaRepository.selectHotSearch(pageable);
-        Page<HotSearch> hotSearches = (Page<HotSearch>) test;
-        return hotSearches;
-
+        List<HotSearch> hotSearchList = new ArrayList<>();
+        List<List<Object>> objectList = searchJpaRepository.selectHotSearch();
+        for (List<Object> o: objectList){
+            HotSearch hotSearch = new HotSearch();
+            hotSearch.setKeyword((String) o.get(0));
+            hotSearch.setCount(((Long)o.get(1)).intValue());
+            hotSearchList.add(hotSearch);
+        }
+        Page<HotSearch> hotSearchPage = new PageImpl(hotSearchList,pageable,hotSearchList.size());
+        return hotSearchPage;
     }
 
     @Override

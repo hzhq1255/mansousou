@@ -30,5 +30,12 @@ public interface ComicService {
      */
     Page<Comic> getAllComics(Integer currentPage,Integer pageSize);
 
-
+    /**
+     *  获取漫画详情
+     * @param comicId
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    Page<ComicEs> getComicByComicId(String comicId,Integer currentPage,Integer pageSize);
 }
