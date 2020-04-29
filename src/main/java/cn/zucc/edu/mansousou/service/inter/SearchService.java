@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.service.inter;
 
+import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.HotSearch;
 import cn.zucc.edu.mansousou.entity.jpa.Search;
 import cn.zucc.edu.mansousou.util.Result;
@@ -54,5 +55,19 @@ public interface SearchService {
      * @return
      */
     Result clearAllSearchByUserId(Integer userId);
+
+    /**
+     * 高级搜索
+     * @param comicEs
+     * @return
+     */
+    Page<ComicEs> advancedSearchComic(ComicEs comicEs);
+
+    /**
+     * 添加搜索记录
+     * @param search
+     * @return
+     */
+    Result addSearch(Search search);
 
 }

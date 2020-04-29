@@ -137,6 +137,7 @@ api地址 http://localhost:8443/api
 | comicId    | String | 否       |      |
 | title | String | 否       |漫画名称      |
 | url    | String | 否       |漫画链接      |
+| pics | String | 否 |漫画封面 |
 
 #### /updateCollect
 **Desc**: 修改收藏记录
@@ -158,6 +159,7 @@ api地址 http://localhost:8443/api
 | comicId    | String | 否       |      |
 | title | String | 否       |漫画名称      |
 | url    | String | 否       |漫画链接      |
+| pics | String | 否 |漫画封面 |
 
 #### /deleteAllCollectByUserId
 **Desc**: 删除用户的所有收藏
@@ -287,7 +289,8 @@ api地址 http://localhost:8443/api
 | userId    | Integer | 否       |          |
 | comicId   | String  | 否       |          |
 | title     | String  | 否       | 漫画标题 |
-| chapterid | String  | 可       |          |
+| pics      | String  | 否       | 漫画封面 |
+| chapterId | String  | 可       |          |
 | chapter   | String  | 可       | 章节名称 |
 | url       | String  | 可       | 章节链接 |
 
@@ -310,7 +313,7 @@ api地址 http://localhost:8443/api
 | 参数      | 类型    | 可否为空 | 描述       |
 | --------- | ------- | -------- | ---------- |
 | readId    | Integer | 否       |            |
-| chapterid | String  | 否       | 改变的章节 |
+| chapterId | String  | 否       | 改变的章节 |
 | chapter   | String  | 否       | 章节名称   |
 | url       | String  | 否       | 章节链接   |
 
@@ -375,7 +378,8 @@ api地址 http://localhost:8443/api
 | --------- | ------- | -------- | ---------- |
 | userId    | Integer | 否       |            |
 | comicId          | String | 否 |            |
-| title | String | 可 | 最好带上，不能在没有标题的时候插入 |
-| chapterid | String  | 可       | 改变的章节 |
+| title | String | 否 | 不能在没有标题的时候插入 |
+| pics | String | 否 | 漫画封面 |
+| chapterId | String  | 可       | 改变的章节 |
 | chapter   | String  | 可       | 章节名称   |
-| url       | String  | 可       | 章节链接   |
+| url       | String  | 否      | 章节链接   |

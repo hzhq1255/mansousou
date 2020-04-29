@@ -5,9 +5,11 @@ import cn.zucc.edu.mansousou.service.inter.SearchService;
 import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author: hzhq1255
@@ -22,6 +24,7 @@ public class SearchController {
 
     SearchService searchService;
 
+    @Autowired
     public void setSearchService(SearchService searchService) {
         this.searchService = searchService;
     }
@@ -58,6 +61,26 @@ public class SearchController {
         pageSize = pageSize <= PageUtil.DEFAULT_PAGE_SIZE ? PageUtil.DEFAULT_PAGE_SIZE: pageSize;
         Object data = PageUtil.getPageData(searchService.getAllSearchByUserId(userId,currentPage-1, pageSize));
         return Result.success(data);
+    }
+
+    @RequestMapping(value = "/clearSearchBySearchId",method = {RequestMethod.POST})
+    public Result clearSearchBySearchId(@RequestParam("searchId") @NotNull Integer searchId){
+        return searchService.clearBySearchId(searchId);
+    }
+
+    @RequestMapping(value = "/clearAllSearchByUserId",method = {RequestMethod.POST})
+    public Result clearAllSearchByUserId(@RequestParam("userId") @NotNull Integer userId){
+        return searchService.clearAllSearchByUserId(userId);
+    }
+
+    @RequestMapping(value = "/addSearch",method = {RequestMethod.POST})
+    public Result addSearch(@RequestParam("content") @NotNull String content,
+                            @RequestParam(value = "userId",required = false) Integer userId){
+        Search search = new Search();
+        search.setContent(content);
+        search.setUserId(userId);
+        search.setCreateTime(new Date());
+        return searchService.addSearch(search);
     }
 
 

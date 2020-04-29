@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.service.impl;
 
+import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.HotSearch;
 import cn.zucc.edu.mansousou.entity.jpa.Search;
 import cn.zucc.edu.mansousou.repository.jpa.SearchJpaRepository;
@@ -30,7 +31,10 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public Page<HotSearch> getHotSearch(Integer currentPage, Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
-        return searchJpaRepository.selectHotSearch(pageable);
+        Object test = searchJpaRepository.selectHotSearch(pageable);
+        Page<HotSearch> hotSearches = (Page<HotSearch>) test;
+        return hotSearches;
+
     }
 
     @Override
@@ -47,11 +51,24 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public Result clearBySearchId(Integer searchId) {
-        return null;
+        searchJpaRepository.clearBySearchId(searchId);
+        return Result.success(searchId);
     }
 
     @Override
     public Result clearAllSearchByUserId(Integer userId) {
+        searchJpaRepository.clearAllByUserId(userId);
+        return Result.success(userId);
+    }
+
+    @Override
+    public Page<ComicEs> advancedSearchComic(ComicEs comicEs) {
         return null;
+    }
+
+    @Override
+    public Result addSearch(Search search) {
+        searchJpaRepository.save(search);
+        return Result.success("add a Search");
     }
 }

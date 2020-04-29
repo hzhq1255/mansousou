@@ -22,6 +22,7 @@ public class Search {
     private Integer searchId;
     private Integer userId;
     private String content;
+    private Integer count;
     private Date createTime;
 
     public Integer getSearchId() {
@@ -54,5 +55,14 @@ public class Search {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

@@ -26,8 +26,8 @@ public interface SearchJpaRepository extends JpaRepository<Search,Integer> {
      * @param pageable
      * @return
      */
-    @Query("select s.content,count(s.content) from Search s order by count(s.content) desc ")
-    Page<HotSearch> selectHotSearch(Pageable pageable);
+    @Query("select s.content,count(s.searchId) from Search s group by s.content order by count(s.searchId) desc ")
+    Page<Object> selectHotSearch(Pageable pageable);
 
     /**
      * 获取所有搜索内容

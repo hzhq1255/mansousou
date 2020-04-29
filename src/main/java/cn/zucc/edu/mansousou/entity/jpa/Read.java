@@ -24,6 +24,15 @@ public class Read {
     private String comicId;
     private String title;
     private String url;
+    private String pics;
     private Date createTime;
     private Date updateTime;
+
+    public Integer getReadId() {
+        return readId;
+    }
+
+    public void setReadId(Integer readId) {
+        this.readId = readId;
+    }
 }

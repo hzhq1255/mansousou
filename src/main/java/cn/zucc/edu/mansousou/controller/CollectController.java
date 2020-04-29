@@ -81,12 +81,14 @@ public class CollectController {
     public Result addCollect(@RequestParam("userId") @NotNull Integer userId,
                              @RequestParam("comicId") @NotNull String comicId,
                              @RequestParam("title") @NotNull String title,
-                             @RequestParam("url") @NotNull String url){
+                             @RequestParam("url") @NotNull String url,
+                             @RequestParam("pics") @NotNull String pics){
         Collect collect = new Collect();
         collect.setUserId(userId);
         collect.setComicId(comicId);
         collect.setTitle(title);
         collect.setUrl(url);
+        collect.setPics(pics);
         collect.setCreateTime(new Date());
         collect.setUpdateTime(new Date());
         return collectService.addCollect(collect);
@@ -96,12 +98,14 @@ public class CollectController {
     public Result updateCollect(@RequestParam("collectId") @NotNull Integer collectId,
                                 @RequestParam("comicId") @NotNull String comicId,
                                 @RequestParam("title") @NotNull String title,
-                                @RequestParam("url") @NotNull String url){
+                                @RequestParam("url") @NotNull String url,
+                                @RequestParam("pics") @NotNull String pics){
         Collect collect = new Collect();
         collect.setCollectId(collectId);
         collect.setComicId(comicId);
         collect.setTitle(title);
         collect.setUrl(url);
+        collect.setPics(pics);
         collect.setUpdateTime(new Date());
         return collectService.updateCollect(collect);
     }

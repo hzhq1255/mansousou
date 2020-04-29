@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.repository.jpa;
 
 import cn.zucc.edu.mansousou.entity.jpa.Collect;
+import cn.zucc.edu.mansousou.entity.jpa.Search;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -53,18 +54,21 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      * @param title
      * @param url
      * @param updateTime
+     * @param pics
      * @return
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
     @Query("update Collect collect set collect.comicId =:comicId, " +
-            "collect.title =:title, collect.url =:url, collect.updateTime =:updateTime " +
+            "collect.title =:title, collect.url =:url, collect.updateTime =:updateTime, " +
+            "collect.pics =:pics " +
             "where collect.collectId =:collectId")
     Integer updateCollect(@Param("collectId") Integer collectId,
                           @Param("comicId") String comicId,
                           @Param("title") String title,
                           @Param("url") String url,
-                          @Param("updateTime")Date updateTime);
+                          @Param("updateTime")Date updateTime,
+                          @Param("pics") String pics);
 
     /**
      * 删除收藏

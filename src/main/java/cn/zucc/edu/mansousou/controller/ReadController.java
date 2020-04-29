@@ -71,7 +71,8 @@ public class ReadController {
                              @RequestParam(value = "title",required = false) String title,
                              @RequestParam(value = "chapterId",required = false) String chapterId,
                              @RequestParam(value = "chapter",required = false) String chapter,
-                             @RequestParam(value = "url",required = false) String url){
+                             @RequestParam(value = "url",required = false) String url,
+                             @RequestParam(value = "pics",required = false) String pics){
         Read read = new Read();
         read.setUserId(userId);
         read.setComicId(comicId);
@@ -79,10 +80,10 @@ public class ReadController {
         read.setTitle(title);
         read.setChapter(chapter);
         read.setUrl(url);
+        read.setTitle(pics);
         read.setCreateTime(new Date());
         read.setUpdateTime(new Date());
         return readService.recordRead(read);
-        //return Result.success(read);
     }
 
     @RequestMapping(value = "/updateRead",method = {RequestMethod.POST})
@@ -105,7 +106,8 @@ public class ReadController {
                           @RequestParam(value = "title",required = true) @NotNull String title,
                           @RequestParam(value = "chapterId",required = false) String chapterId,
                           @RequestParam(value = "chapter",required = false) String chapter,
-                          @RequestParam(value = "url",required = false) String url){
+                          @RequestParam(value = "url",required = false) String url,
+                          @RequestParam(value = "pics",required = false) String pics  ){
         Read read = new Read();
         read.setUserId(userId);
         read.setComicId(comicId);
@@ -113,6 +115,7 @@ public class ReadController {
         read.setChapterId(chapterId);
         read.setChapter(chapter);
         read.setUrl(url);
+        read.setPics(pics);
         read.setCreateTime(new Date());
         read.setUpdateTime(new Date());
         return readService.addRead(read);

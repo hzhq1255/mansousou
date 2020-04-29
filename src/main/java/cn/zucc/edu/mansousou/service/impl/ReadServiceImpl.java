@@ -65,7 +65,7 @@ public class ReadServiceImpl implements ReadService {
     @Override
     public Result addRead(Read read) {
         readJpaRepository.save(read);
-        return Result.success(read.getReadId());
+        return Result.success("add a Read");
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ReadServiceImpl implements ReadService {
             }else {
                 return Result.error("参数错误");
             }
-            return Result.success("update "+needRecord.getUserId()+needRecord.getComicId());
+            return Result.success("update "+needRecord.getUserId()+" "+needRecord.getComicId());
         }else {
             if (read.getTitle() == null ){
                 return Result.success("请增加漫画名");

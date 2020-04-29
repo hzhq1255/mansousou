@@ -56,7 +56,7 @@ public class CollectServiceImpl implements CollectService {
     public Result updateCollect(Collect collect) {
         collectJpaRepository.updateCollect(collect.getCollectId(),
                 collect.getComicId(),collect.getTitle(),
-                collect.getUrl(),collect.getUpdateTime());
+                collect.getUrl(),collect.getUpdateTime(),collect.getPics());
         return Result.success(collect.getCollectId());
     }
 

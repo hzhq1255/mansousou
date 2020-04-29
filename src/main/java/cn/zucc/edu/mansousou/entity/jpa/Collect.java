@@ -22,6 +22,7 @@ public class Collect {
     private String comicId;
     private String title;
     private String url;
+    private String pics;
     private Date createTime;
     private Date updateTime;
 
@@ -80,6 +81,14 @@ public class Collect {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getPics() {
+        return pics;
+    }
+
+    public void setPics(String pics) {
+        this.pics = pics;
     }
 
     @Override
