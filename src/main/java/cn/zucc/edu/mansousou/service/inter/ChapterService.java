@@ -2,6 +2,7 @@ package cn.zucc.edu.mansousou.service.inter;
 
 import cn.zucc.edu.mansousou.entity.es.ChapterEs;
 import cn.zucc.edu.mansousou.entity.jpa.Chapter;
+import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
 
 /**
@@ -18,7 +19,7 @@ public interface ChapterService {
      * @param pageSize
      * @return
      */
-    Page<ChapterEs> searchAllChapterByComicId(String comicId, Integer currentPage, Integer pageSize);
+    Page<ChapterEs> getAllChapterByComicId(String comicId, Integer currentPage, Integer pageSize);
 
     /**
      * 获取所有章节
@@ -27,4 +28,11 @@ public interface ChapterService {
      * @return
      */
     Page<Chapter> getAllChapter(Integer currentPage, Integer pageSize);
+
+    /**
+     * es 通过 id 获取 漫画详情
+     * @param comicId
+     * @return
+     */
+    Result getAllChapterByComicId(String comicId);
 }

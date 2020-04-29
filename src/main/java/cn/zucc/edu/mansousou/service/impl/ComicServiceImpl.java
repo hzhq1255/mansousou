@@ -5,6 +5,7 @@ import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import cn.zucc.edu.mansousou.repository.es.ComicEsRepository;
 import cn.zucc.edu.mansousou.repository.jpa.ComicJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.ComicService;
+import cn.zucc.edu.mansousou.util.Result;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -52,4 +53,5 @@ public class ComicServiceImpl implements ComicService {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         return comicJpaRepository.queryAll(pageable);
     }
+
 }

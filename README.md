@@ -38,10 +38,10 @@ api地址 http://localhost:8443/api
 
 ### 4.ChapterController
 
-| 接口                       | 参数                                                 | 返回数据                          |
-| -------------------------- | ---------------------------------------------------- | --------------------------------- |
-| /searchAllChapterByComicId | Integer comicId,Integer currentPage,Integer pageSize | 通过es查询comicId获得所有章节数据 |
-| /getAllChapter             | Integer currentPage,Integer pageSize                 | 从数据库获取所有章节              |
+| 接口                    | 参数                                                 | 返回数据                          |
+| ----------------------- | ---------------------------------------------------- | --------------------------------- |
+| /getAllChapterByComicId | Integer comicId,Integer currentPage,Integer pageSize | 通过es查询comicId获得所有章节数据 |
+| /getAllChapter          | Integer currentPage,Integer pageSize                 | 从数据库获取所有章节              |
 
 ### 5.ReadController
 
@@ -199,7 +199,7 @@ api地址 http://localhost:8443/api
 
 #### /recordRead
 
-**Desc**: 记录阅读记录，传入 userId,comicId，如果已存在，只更新时间，如果不存在，创建记录，如果传入完整参数，并且存在更新记录，其他报错A
+**Desc**: 记录阅读记录，传入 userId,comicId，如果已存在，只更新时间，如果不存在，创建记录，如果传入完整参数，并且存在更新记录，其他报错A10
 
 **Content-type:** application/x-www-form-urlencoded
 

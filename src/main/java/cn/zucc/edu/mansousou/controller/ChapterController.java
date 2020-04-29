@@ -24,8 +24,8 @@ public class ChapterController {
         this.chapterService = chapterService;
     }
 
-    @RequestMapping(value = "/searchAllChapterByComicId",method = {RequestMethod.GET,RequestMethod.POST})
-    public Result searchAllChapterByComicId(@RequestParam("comicId") @NotNull String comicId,
+    @RequestMapping(value = "/getAllChapterByComicId",method = {RequestMethod.GET,RequestMethod.POST})
+    public Result getAllChapterByComicId(@RequestParam("comicId") @NotNull String comicId,
                                             @RequestParam("currentPage") @NotNull Integer currentPage,
                                             @RequestParam("pageSize") @NotNull Integer pageSize){
         if (comicId.isEmpty() || currentPage == 0  || pageSize == 0 ){
@@ -34,7 +34,7 @@ public class ChapterController {
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
             pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
-        Object data = PageUtil.getPageData(chapterService.searchAllChapterByComicId(comicId, currentPage-1, pageSize));
+        Object data = PageUtil.getPageData(chapterService.getAllChapterByComicId(comicId, currentPage-1, pageSize));
         return Result.success(data);
     }
 

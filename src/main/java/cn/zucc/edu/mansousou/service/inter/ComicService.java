@@ -2,6 +2,7 @@ package cn.zucc.edu.mansousou.service.inter;
 
 import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
+import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
 
 import java.io.IOException;
@@ -28,4 +29,6 @@ public interface ComicService {
      * @return
      */
     Page<Comic> getAllComics(Integer currentPage,Integer pageSize);
+
+
 }

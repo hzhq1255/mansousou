@@ -5,6 +5,7 @@ import cn.zucc.edu.mansousou.entity.jpa.Chapter;
 import cn.zucc.edu.mansousou.repository.es.ChapterEsRepository;
 import cn.zucc.edu.mansousou.repository.jpa.ChapterJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.ChapterService;
+import cn.zucc.edu.mansousou.util.Result;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -17,6 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hzhq1255
@@ -40,7 +44,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public Page<ChapterEs> searchAllChapterByComicId(String comicId, Integer currentPage,Integer pageSize) {
+    public Page<ChapterEs> getAllChapterByComicId(String comicId, Integer currentPage,Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         builder.must(QueryBuilders.matchPhraseQuery("comic_id",comicId));
@@ -59,4 +63,10 @@ public class ChapterServiceImpl implements ChapterService {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         return chapterJpaRepository.selectAll(pageable);
     }
+
+    @Override
+    public Result getAllChapterByComicId(String comicId) {
+        return null;
+    }
+
 }

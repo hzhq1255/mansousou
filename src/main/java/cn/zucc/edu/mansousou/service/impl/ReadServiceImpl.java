@@ -83,8 +83,11 @@ public class ReadServiceImpl implements ReadService {
             }
             return Result.success("update "+needRecord.getUserId()+needRecord.getComicId());
         }else {
-            if (read.getTitle() == null){
+            if (read.getTitle() == null ){
                 return Result.success("请增加漫画名");
+            }
+            if (read.getUrl() == null){
+                return Result.success("请增加链接");
             }
             readJpaRepository.save(read);
             return Result.success("add "+needRecord.getUserId()+needRecord.getComicId());
