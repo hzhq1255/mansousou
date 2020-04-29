@@ -247,7 +247,7 @@ api地址 http://localhost:8443/api
 ```json
 {
     "code": 200,
-    "msg": sucess,
+    "msg": "success",
     "data":{
         "totalPages": 1,
         "totalElements":1,
