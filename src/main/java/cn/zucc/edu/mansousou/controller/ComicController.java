@@ -30,10 +30,10 @@ public class ComicController {
     }
 
     @RequestMapping(value = "/searchComic",method = {RequestMethod.GET,RequestMethod.POST})
-    public Result searchComic(@RequestParam("keyword") String keyword,
+    public Result searchComic(@RequestParam("keyword")  String keyword,
                               @RequestParam("currentPage") Integer currentPage,
                               @RequestParam("pageSize") Integer pageSize) throws IOException {
-        if (keyword.isEmpty() ){
+        if (keyword.isEmpty() || keyword == null ){
             return Result.build(400,"查询关键字不能为空");
         }else if (currentPage == null || currentPage == 0) {
             return Result.build(400, "当前页面参数不能为空");
@@ -68,14 +68,7 @@ public class ComicController {
     }
 
     @RequestMapping(value = "/getComicByComicId",method = {RequestMethod.GET,RequestMethod.POST})
-    public Result getComicByComicId(@RequestParam("comicId") @NotNull String comicId,
-                                    @RequestParam("currentPage") @NotNull Integer currentPage,
-                                    @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (currentPage <= 0 || pageSize <= 0){
-            return Result.error("参数错误");
-        }
-        pageSize = pageSize <= PageUtil.DEFAULT_PAGE_SIZE ? PageUtil.DEFAULT_PAGE_SIZE: pageSize;
-        Object data = PageUtil.getPageData(comicService.getComicByComicId(comicId,currentPage-1,pageSize));
-        return Result.success(data);
+    public Result getComicByComicId(@RequestParam("comicId") @NotNull String comicId){
+        return Result.success(comicService.getComicByComicId(comicId));
     }
 }

@@ -31,7 +31,7 @@ public class CollectController {
         this.collectService = collectService;
     }
 
-    @RequestMapping(value = "/getAllCollectByUserId",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllCollectByUserId",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllCollectByUserId(@RequestParam("userId") @NotNull Integer userId,
                                         @RequestParam("currentPage") @NotNull Integer currentPage,
                                         @RequestParam("pageSize") @NotNull Integer pageSize){
@@ -49,7 +49,7 @@ public class CollectController {
         return Result.success(data);
     }
 
-    @RequestMapping(value = "/getAllCollectByUserName",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllCollectByUserName",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllByUserName(@RequestParam("userName") @NotNull String userName,
                                    @RequestParam("currentPage") @NotNull Integer currentPage,
                                    @RequestParam("pageSize") @NotNull Integer pageSize){
@@ -67,7 +67,7 @@ public class CollectController {
         return Result.success(data);
     }
 
-    @RequestMapping(value = "/getAllCollect",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllCollect",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAll(@RequestParam("currentPage") @NotNull Integer currentPage,
                          @RequestParam("pageSize") @NotNull Integer pageSize){
         if (currentPage <= 0 || pageSize <= 0){

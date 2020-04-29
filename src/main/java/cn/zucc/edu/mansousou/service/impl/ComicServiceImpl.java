@@ -55,10 +55,11 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public Page<ComicEs> getComicByComicId(String comicId, Integer currentPage, Integer pageSize) {
-        Pageable pageable = PageRequest.of(currentPage,pageSize);
+    public Result getComicByComicId(String comicId) {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         builder.must(QueryBuilders.termQuery("id",comicId));
-        return comicEsRepository.search(builder,pageable);
+        Page<ComicEs> comicEsPage = (Page<ComicEs>) comicEsRepository.search(builder);
+        ComicEs comicEs = (ComicEs) comicEsPage.getContent().get(0);
+        return Result.success(comicEs);
     }
 }

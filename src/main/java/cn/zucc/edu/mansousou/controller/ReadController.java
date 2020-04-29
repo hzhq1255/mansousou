@@ -30,7 +30,7 @@ public class ReadController {
         this.readService = readService;
     }
 
-    @RequestMapping(value = "/getAllReadByUserId",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllReadByUserId",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllReadByUserId(@RequestParam("userId") @NotNull Integer userId,
                                      @RequestParam("currentPage") @NotNull Integer currentPage,
                                      @RequestParam("pageSize") @NotNull Integer pageSize){
@@ -44,7 +44,7 @@ public class ReadController {
         return Result.success(data);
     }
 
-    @RequestMapping(value = "/getAllRead",method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllRead",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAll(@RequestParam("currentPage") @NotNull Integer currentPage,
                          @RequestParam("pageSize") @NotNull Integer pageSize){
         if (currentPage <= 0 || pageSize <= 0 ){

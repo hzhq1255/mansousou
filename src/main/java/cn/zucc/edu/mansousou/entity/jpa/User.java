@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -29,8 +30,11 @@ public class User {
     @JsonProperty("name")
     @Column(name = "name")
     private String userName;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
 
 

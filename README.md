@@ -16,18 +16,182 @@ api地址 http://localhost:8443/api
 
 ### 1.UserController
 
-| 接口     | 参数                                              | 返回数据                          |
-| -------- | ------------------------------------------------- | --------------------------------- |
-| /login   | String userame,String password                    | 登录成功返回带有success信息的响应 |
-| /reg     | String username,String password1,String password2 | 注册成功返回带有success信息的响应 |
-| /getInfo | 无                                                | 无                                |
+#### /login
+
+**Desc**: 登录成功返回 userId
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": " userId "
+}
+```
+
+
+
+| 参数     | 类型   | 可否为空 | 描述 |
+| -------- | ------ | -------- | ---- |
+| username | String | 否       |      |
+| password | String | 否       |      |
+
+#### /reg
+
+**Desc**:  注册
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": " 注册成功 "
+}
+```
+
+| 参数      | 类型   | 可否为空 | 描述 |
+| --------- | ------ | -------- | ---- |
+| username  | String | 否       |      |
+| password1 | String | 否       |      |
+| password2 | String | 否       |      |
+
+#### /getUserInfo
+
+**Desc**: 获取用户的收藏，阅读，搜索记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "user": {
+             "read": {},
+             "collect": {},
+             "search": {}
+            }
+        ]
+    }
+}
+```
+
+
+
+| 参数   | 类型    | 可否为空 | 描述 |
+| ------ | ------- | -------- | ---- |
+| userId | Integer | 否       |      |
 
 ### 2.ComicController
 
-| 接口         | 参数                                               | 返回数据             |
-| ------------ | -------------------------------------------------- | -------------------- |
-| /searchComic | String keyword,Integer currentPage,Intger pageSize | 通过es查询成功的漫画 |
-| /getAllComic | Integer currentPage,Intger pageSize                | 数据库中的所有漫画   |
+#### /searchComic
+
+**Desc:** es查询漫画，匹配漫画标题和简介
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "list comics"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述     |
+| ----------- | ------- | -------- | -------- |
+| keyword     | String  | 否       | 查询内容 |
+| currentPage | Integer | 否       |          |
+| pageSize    | Integer | 否       |          |
+
+#### /getAllComic
+
+**Desc:** 获取所有漫画
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "list comics"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
+
+#### /getComicByComicId
+
+**Desc:** 通过id获取漫画
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "Comic Object"
+    }
+}
+```
+
+| 参数    | 类型   | 可否为空 | 描述 |
+| ------- | ------ | -------- | ---- |
+| comicId | String | 否       |      |
+
+
+
 
 ### 3.CollectController
 
@@ -36,6 +200,8 @@ api地址 http://localhost:8443/api
 **Desc**: 通过userName获得收藏记录
 
 **Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
 
 **Return:**
 
@@ -66,6 +232,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **get，post**
+
 **Return:**
 
 ```json
@@ -95,6 +263,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **get，post**
+
 **Return:**
 
 ```json
@@ -122,6 +292,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -143,6 +315,8 @@ api地址 http://localhost:8443/api
 **Desc**: 修改收藏记录
 
 **Content-type: application/x-www-form-urlencoded**
+
+**Http:** **post**
 
 **Return:**
 
@@ -166,6 +340,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -184,6 +360,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -199,10 +377,67 @@ api地址 http://localhost:8443/api
 
 ### 4.ChapterController
 
-| 接口                    | 参数                                                 | 返回数据                          |
-| ----------------------- | ---------------------------------------------------- | --------------------------------- |
-| /getAllChapterByComicId | Integer comicId,Integer currentPage,Integer pageSize | 通过es查询comicId获得所有章节数据 |
-| /getAllChapter          | Integer currentPage,Integer pageSize                 | 从数据库获取所有章节              |
+#### /getAllChapterByComicId
+
+**Desc**: 通过漫画 id 获取所有章节信息
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            " Chapter Object List"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| comicId     | Integer | 否       |      |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
+
+#### /getAllChapter
+
+**Desc**: 通过漫画 id 获取所有章节信息
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            " Chapter Object List"
+        ]
+    }
+}
+```
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
 
 ### 5.ReadController
 
@@ -212,6 +447,8 @@ api地址 http://localhost:8443/api
 
 **Content-type: application/x-www-form-urlencoded**
 
+**Http:** **get，post**
+
 **Return:**
 
 ```json
@@ -230,13 +467,11 @@ api地址 http://localhost:8443/api
 }
 ```
 
-
-
-| 参数        | 类型    | 可否为空 |
-| ----------- | ------- | -------- |
-| userId      | Integer | 否       |
-| currentPage | Integer | 否       |
-| pageSize    | Integer | 否       |
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| userId      | Integer | 否       |      |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
 
 #### 	/getAllRead
 
@@ -244,6 +479,8 @@ api地址 http://localhost:8443/api
 
 **Content-type:** application/x-www-form-urlencoded
 
+**Http:** **get，post**
+
 **Return:**
 
 ```json
@@ -263,16 +500,18 @@ api地址 http://localhost:8443/api
 ```
 
 
-| 参数        | 类型    | 可否为空 |
-| ----------- | ------- | -------- |
-| currentPage | Integer | 否       |
-| pageSize    | Integer | 否       |
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
 
 #### 	/addRead
 
 **Desc**: 添加阅读记录
 
 **Content-type:** application/x-www-form-urlencoded
+
+**Http:** **post**
 
 **Return:**
 
@@ -300,6 +539,8 @@ api地址 http://localhost:8443/api
 
 **Content-type:** application/x-www-form-urlencoded
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -323,6 +564,8 @@ api地址 http://localhost:8443/api
 
 **Content-type:** application/x-www-form-urlencoded
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -342,6 +585,8 @@ api地址 http://localhost:8443/api
 **Desc**: 删除某一用户下的所有记录
 
 **Content-type:** application/x-www-form-urlencoded
+
+**Http:** **post**
 
 **Return:**
 
@@ -365,6 +610,8 @@ api地址 http://localhost:8443/api
 
 **Content-type:** application/x-www-form-urlencoded
 
+**Http:** **post**
+
 **Return:**
 
 ```json
@@ -383,3 +630,169 @@ api地址 http://localhost:8443/api
 | chapterId | String  | 可       | 改变的章节 |
 | chapter   | String  | 可       | 章节名称   |
 | url       | String  | 否      | 章节链接   |
+
+### 6. SearchController
+
+#### /getHotSearch
+
+**Desc**:  获取总的搜索热度，按照热度降序排序
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            {
+                "keyword": "XXX",
+                "count": 3
+            }
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
+
+#### /getAllSearch
+
+**Desc**:  获取总的搜索热度，按照热度降序排序
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "search object list"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
+
+#### /getAllSearchByUserId
+**Desc**:  获取用户的搜索记录
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "search object list"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述 |
+| ----------- | ------- | -------- | ---- |
+| userId      | Integer | 否       |      |
+| currentPage | Integer | 否       |      |
+| pageSize    | Integer | 否       |      |
+
+#### /clearAllSearchBySearchId
+
+**Desc**:  删除某一搜索记录
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": " searchId"
+}
+```
+
+| 参数     | 类型    | 可否为空 | 描述       |
+| -------- | ------- | -------- | ---------- |
+| searchId | Integer | 否       | 搜索记录ID |
+
+#### /clearAllSearchByUserId
+
+**Desc**:  清空用户的搜索历史
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": "userId"
+}
+```
+
+| 参数   | 类型    | 可否为空 | 描述 |
+| ------ | ------- | -------- | ---- |
+| userId | Integer | 否       |      |
+
+#### /addSearch
+
+**Desc**:  清空用户的搜索历史
+
+**Content-type:** application/x-www-form-urlencoded
+
+**Http:** **post**
+
+**Return:**
+
+```json
+{
+    "code":200,
+    "msg": "success",
+    "data": "add a Search"
+}
+```
+
+| 参数    | 类型    | 可否为空 | 描述     |
+| ------- | ------- | -------- | -------- |
+| keyword | String  | 否       | 搜索内容 |
+| userId  | Integer | 可       |          |
+
