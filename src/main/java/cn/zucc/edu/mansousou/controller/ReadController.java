@@ -18,7 +18,7 @@ import java.util.HashMap;
  * @description:
  */
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 @CrossOrigin
 public class ReadController {
 
@@ -68,6 +68,7 @@ public class ReadController {
     @RequestMapping(value = "/recordRead",method = {RequestMethod.POST})
     public Result recordRead(@RequestParam("userId") @NotNull Integer userId,
                              @RequestParam("comicId") @NotNull String comicId,
+                             @RequestParam(value = "title",required = false) String title,
                              @RequestParam(value = "chapterId",required = false) String chapterId,
                              @RequestParam(value = "chapter",required = false) String chapter,
                              @RequestParam(value = "url",required = false) String url){
@@ -75,6 +76,7 @@ public class ReadController {
         read.setUserId(userId);
         read.setComicId(comicId);
         read.setChapterId(chapterId);
+        read.setTitle(title);
         read.setChapter(chapter);
         read.setUrl(url);
         read.setCreateTime(new Date());
