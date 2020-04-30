@@ -289,7 +289,7 @@ api地址 http://localhost:8443/api
 
 #### /getCollectByUserIdAndComicId
 
-**Desc**: 获取所有收藏记录
+**Desc**: 通过userId 和 comicId获取收藏记录
 
 **Content-type: application/x-www-form-urlencoded**
 
@@ -302,6 +302,29 @@ api地址 http://localhost:8443/api
     "code": 200,
     "msg": "success",
     "data":" collect object"
+}
+```
+
+| 参数    | 类型    | 可否为空 | 描述 |
+| ------- | ------- | -------- | ---- |
+| userId  | Integer | 否       |      |
+| comicId | String  | 否       |      |
+
+#### /isComicCollectedByUser
+
+**Desc**: 判断漫画是否被收藏
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data":"yes or no"
 }
 ```
 

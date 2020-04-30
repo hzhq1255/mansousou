@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.controller;
 
 import cn.zucc.edu.mansousou.entity.jpa.Collect;
+import cn.zucc.edu.mansousou.entity.jpa.User;
 import cn.zucc.edu.mansousou.service.inter.CollectService;
 import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
@@ -83,6 +84,18 @@ public class CollectController {
         return collectService.getCollectByUserIdAndComicId(userId, comicId);
     }
 
+
+    @RequestMapping(value = "/isComicCollectedByUser",method = {RequestMethod.GET,RequestMethod.POST})
+    public Result isComicCollectedByUser(@RequestParam("userId") @NotNull Integer userId,
+                                         @RequestParam("comicId") @NotNull String comicId){
+        Result result = collectService.getCollectByUserIdAndComicId(userId,comicId);
+        if (result.getData() == null){
+            result.setData("no");
+        }else {
+            result.setData("yes");
+        }
+        return result;
+    }
 
     @RequestMapping(value = "/addCollect",method = {RequestMethod.POST})
     public Result addCollect(@RequestParam("userId") @NotNull Integer userId,
