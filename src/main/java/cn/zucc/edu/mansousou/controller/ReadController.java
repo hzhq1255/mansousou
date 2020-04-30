@@ -80,7 +80,7 @@ public class ReadController {
         read.setTitle(title);
         read.setChapter(chapter);
         read.setUrl(url);
-        read.setTitle(pics);
+        read.setPics(pics);
         read.setCreateTime(new Date());
         read.setUpdateTime(new Date());
         return readService.recordRead(read);
