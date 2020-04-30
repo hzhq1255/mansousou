@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @mail hzhq1255@163.com
  * @Date: 2020/4/27 18:18
  */
+@Repository
 public interface UserJpaRepository extends JpaRepository<User,Integer> {
 
     /**

@@ -287,7 +287,31 @@ api地址 http://localhost:8443/api
 | currentPage | String | 否       |      |
 | pageSize    | String | 否       |      |
 
+#### /getCollectByUserIdAndComicId
+
+**Desc**: 获取所有收藏记录
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":" collect object"
+}
+```
+
+| 参数    | 类型    | 可否为空 | 描述 |
+| ------- | ------- | -------- | ---- |
+| userId  | Integer | 否       |      |
+| comicId | String  | 否       |      |
+
 #### /addCollect
+
 **Desc**: 获取所有收藏记录
 
 **Content-type: application/x-www-form-urlencoded**

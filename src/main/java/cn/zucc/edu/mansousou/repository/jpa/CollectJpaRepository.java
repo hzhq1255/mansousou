@@ -19,6 +19,7 @@ import java.util.List;
  * @mail hzhq1255@163.com
  * @Date: 2020/4/27 20:24
  */
+@Repository
 public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
 
     /**
@@ -38,6 +39,14 @@ public interface CollectJpaRepository extends JpaRepository<Collect,Integer> {
      */
     @Query("select collect from Collect collect where collect.userId =:userName order by collect.updateTime desc ")
     Page<Collect> selectAllByUserName(@Param("userName") String userName, Pageable pageable);
+
+    /**
+     * 通过 userId 和 comicId 获取 Collect
+     * @param userId
+     * @param comicId
+     * @return
+     */
+    Collect getCollectByUserIdAndComicId(Integer userId,String comicId);
 
     /**
      * 获取所有订阅

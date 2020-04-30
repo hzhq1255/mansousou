@@ -46,10 +46,23 @@ public class CollectServiceImpl implements CollectService {
         return collectJpaRepository.selectAll(pageable);
     }
 
+
+    @Override
+    public Result getCollectByUserIdAndComicId(Integer userId, String comicId) {
+        Collect collect = collectJpaRepository.getCollectByUserIdAndComicId(userId, comicId);
+        return Result.success(collect);
+    }
+
     @Override
     public Result addCollect(Collect collect) {
-        collectJpaRepository.save(collect);
-        return Result.success(collect.getCollectId());
+        Collect c = collectJpaRepository.getCollectByUserIdAndComicId(collect.getUserId(),collect.getComicId());
+        if (c == null){
+            collectJpaRepository.save(collect);
+            return Result.success(collect.getCollectId());
+        }else {
+            return Result.error("已存在");
+        }
+
     }
 
     @Override

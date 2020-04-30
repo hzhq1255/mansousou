@@ -68,7 +68,7 @@ public class CollectController {
     }
 
     @RequestMapping(value = "/getAllCollect",method = {RequestMethod.GET,RequestMethod.POST})
-    public Result getAll(@RequestParam("currentPage") @NotNull Integer currentPage,
+    public Result getAllCollect(@RequestParam("currentPage") @NotNull Integer currentPage,
                          @RequestParam("pageSize") @NotNull Integer pageSize){
         if (currentPage <= 0 || pageSize <= 0){
             return Result.error("参数错误");
@@ -76,6 +76,13 @@ public class CollectController {
         Object data = PageUtil.getPageData(collectService.getAll(currentPage-1, pageSize));
         return Result.success(data);
     }
+
+    @RequestMapping(value = "/getCollectByUserIdAndComicId",method = {RequestMethod.GET,RequestMethod.POST})
+    public Result getCollectByUserIdAndComicId(@RequestParam("userId") @NotNull Integer userId,
+                                               @RequestParam("comicId") @NotNull String comicId){
+        return collectService.getCollectByUserIdAndComicId(userId, comicId);
+    }
+
 
     @RequestMapping(value = "/addCollect",method = {RequestMethod.POST})
     public Result addCollect(@RequestParam("userId") @NotNull Integer userId,

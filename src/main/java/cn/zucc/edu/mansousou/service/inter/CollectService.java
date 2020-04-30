@@ -38,6 +38,14 @@ public interface CollectService {
     Page<Collect> getAll(Integer currentPage,Integer pageSize);
 
     /**
+     * 通过 userId 和 comicId 获取 Collect
+     * @param userId
+     * @param comicId
+     * @return
+     */
+    Result getCollectByUserIdAndComicId(Integer userId,String comicId);
+
+    /**
      * 添加收藏
      * @param collect
      * @return

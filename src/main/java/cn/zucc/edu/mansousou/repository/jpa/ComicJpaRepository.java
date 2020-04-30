@@ -15,6 +15,7 @@ import java.util.List;
  * @mail hzhq1255@163.com
  * @Date: 2020/4/27 16:55
  */
+@Repository
 public interface ComicJpaRepository extends JpaRepository<Comic,String> {
     /**
      * 获取全部
