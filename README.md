@@ -135,6 +135,43 @@ api地址 http://localhost:8443/api
 | currentPage | Integer | 否       |          |
 | pageSize    | Integer | 否       |          |
 
+#### /advancedSearch
+
+**Desc:** 高级搜索，参数不可全为空
+
+**Content-type: application/x-www-form-urlencoded**
+
+**Http:** **get，post**
+
+**Return:**
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data":{
+        "totalPages": 1,
+        "totalElements":1,
+        "pageSize":10,
+        "currentPage":1,
+        "content":[
+            "list comics"
+        ]
+    }
+}
+```
+
+| 参数        | 类型    | 可否为空 | 描述     |
+| ----------- | ------- | -------- | -------- |
+| title     | String  | 可       | 漫画标题 |
+| author    | String  | 可       | 作者    |
+| desc      | String  | 可       | 简介    |
+| genre     | String  | 可       | 分类    |
+| status    | String  | 可       | 连载状态 |
+| isExactMatch| Integer | 可     | 1为精确查询,不传或传0为模糊查询|
+| currentPage | Integer | 否       |          |
+| pageSize    | Integer | 否       |          |
+
 #### /getAllComic
 
 **Desc:** 获取所有漫画

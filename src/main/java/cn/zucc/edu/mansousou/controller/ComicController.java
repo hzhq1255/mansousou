@@ -70,10 +70,16 @@ public class ComicController {
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
             pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
-        if ((title == null || "".equals(title)) && (author == null || "".equals(title) )
-                && (status == null || "".equals(status)) && (desc == null || "".equals(desc))
-                && (genre == null || "".equals(genre)) ){
-            return Result.error("请至少输入一个搜索参数");
+        if (title == null || "".equals(title)){
+            if (author == null || "".equals(title)){
+                if (status == null || "".equals(status)){
+                    if (desc == null || "".equals(desc)){
+                        if (genre == null || "".equals(genre)){
+                            return Result.error("请至少输入一个搜索参数");
+                        }
+                    }
+                }
+            }
         }
         ComicEs comicEs = new ComicEs();
         comicEs.setTitle(title);
