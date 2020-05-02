@@ -19,11 +19,17 @@ import java.util.List;
 public interface ComicJpaRepository extends JpaRepository<Comic,String> {
     /**
      * 获取全部
+     * @param pageable
      * @return
      */
     @Query("select comic from Comic comic order by comic.id desc ")
     Page<Comic> queryAll(Pageable pageable);
 
+    /**
+     * 查询
+     * @param keyword
+     * @return
+     */
     @Query("select comic from Comic comic where comic.title "+
             "like concat('%',:keyword,'%') or comic.author like concat('%',:keyword,'%') "+
             "or comic.desc like concat('%',:keyword,'%')")

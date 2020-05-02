@@ -22,6 +22,18 @@ public interface ComicService {
      */
     Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize) throws IOException;
 
+
+    /**
+     * 高级搜索
+     * @param comicEs
+     * @param isExactMatch
+     * @param currentPage
+     * @param pageSize
+     * @return 搜索分页结果
+     */
+    Page<ComicEs> advancedSearch(ComicEs comicEs,Integer isExactMatch,Integer currentPage,Integer pageSize);
+
+
     /**
      * 通过 jpa 获取所有的 漫画
      * @param currentPage

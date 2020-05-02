@@ -35,6 +35,7 @@ public class SearchController {
             return Result.error("参数错误");
         }
         pageSize = pageSize <= PageUtil.DEFAULT_PAGE_SIZE ? PageUtil.DEFAULT_PAGE_SIZE: pageSize;
+
         Object data = PageUtil.getPageData(searchService.getHotSearch(currentPage-1, pageSize));
         return Result.success(data);
     }

@@ -2,9 +2,12 @@ package cn.zucc.edu.mansousou.util;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author hzhq1255
@@ -30,6 +33,12 @@ public class PageUtil extends HashMap<String,Object>{
         hashMap.put("totalPages",page.getTotalPages());
         hashMap.put("content",page.getContent());
         return hashMap;
+    }
+
+    public static  <T> Page<T> listConvertToPage(List<T> list, Pageable pageable) {
+        int start = (int)pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > list.size() ? list.size() : ( start + pageable.getPageSize());
+        return new PageImpl<T>(list.subList(start, end), pageable, list.size());
     }
 
     public Integer getCurrentPage() {

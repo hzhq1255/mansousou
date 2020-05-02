@@ -44,7 +44,7 @@ public interface SearchJpaRepository extends JpaRepository<Search,Integer> {
      * @param pageable
      * @return
      */
-    @Query("select s from Search s where s.userId =:userId order by s.createTime desc ")
+    @Query("select s from Search s where s.userId =:userId order by s.createTime desc  ")
     Page<Search> selectAllSearchByUserId(@Param("userId") Integer userId,Pageable pageable);
 
     /**

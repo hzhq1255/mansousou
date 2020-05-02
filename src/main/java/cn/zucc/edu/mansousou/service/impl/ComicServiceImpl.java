@@ -49,6 +49,49 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
+    public Page<ComicEs> advancedSearch(ComicEs comicEs,Integer isExactMatch, Integer currentPage, Integer pageSize) {
+        Pageable pageable = PageRequest.of(currentPage,pageSize);
+        BoolQueryBuilder builder = QueryBuilders.boolQuery();
+        if (isExactMatch == null || isExactMatch == 0 ){
+            if (comicEs.getTitle() != null && !"".equals(comicEs.getTitle())){
+                builder.should(QueryBuilders.matchPhraseQuery("title",comicEs.getTitle()));
+            }
+            if (comicEs.getAuthor() != null && !"".equals(comicEs.getAuthor())){
+                builder.should(QueryBuilders.matchPhraseQuery("author",comicEs.getAuthor()));
+            }
+            if (comicEs.getDesc() != null && !"".equals(comicEs.getDesc())){
+                builder.should(QueryBuilders.matchPhraseQuery("desc",comicEs.getDesc()));
+            }
+            if (comicEs.getGenre() != null && !"".equals(comicEs.getGenre())){
+                builder.should(QueryBuilders.matchPhraseQuery("genre",comicEs.getGenre()));
+            }
+            if (comicEs.getStatus() != null && !"".equals(comicEs.getStatus())){
+                builder.should(QueryBuilders.matchPhraseQuery("status",comicEs.getStatus()));
+            }
+        }
+        if (isExactMatch != null && isExactMatch == 1){
+            if (comicEs.getTitle() != null && !"".equals(comicEs.getTitle())){
+                builder.must(QueryBuilders.termQuery("title.keyword",comicEs.getTitle()));
+            }
+            if (comicEs.getAuthor() != null && !"".equals(comicEs.getAuthor())){
+                builder.must(QueryBuilders.termQuery("author.keyword",comicEs.getAuthor()));
+            }
+            if (comicEs.getDesc() != null && !"".equals(comicEs.getDesc())){
+                builder.must(QueryBuilders.termQuery("desc.keyword",comicEs.getDesc()));
+            }
+            if (comicEs.getGenre() != null && !"".equals(comicEs.getGenre())){
+                builder.must(QueryBuilders.termQuery("genre.keyword",comicEs.getGenre()));
+            }
+            if (comicEs.getStatus() != null && !"".equals(comicEs.getStatus())){
+                builder.must(QueryBuilders.termQuery("status.keyword",comicEs.getStatus()));
+            }
+        }
+
+        return comicEsRepository.search(builder,pageable) ;
+    }
+
+
+    @Override
     public Page<Comic> getAllComics(Integer currentPage,Integer pageSize){
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         return comicJpaRepository.queryAll(pageable);
@@ -59,7 +102,10 @@ public class ComicServiceImpl implements ComicService {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         builder.must(QueryBuilders.termQuery("id",comicId));
         Page<ComicEs> comicEsPage = (Page<ComicEs>) comicEsRepository.search(builder);
-        ComicEs comicEs = (ComicEs) comicEsPage.getContent().get(0);
+        ComicEs comicEs = comicEsPage.getContent().get(0);
+        if (comicEs == null){
+            return Result.success("没有此漫画");
+        }
         return Result.success(comicEs);
     }
 }

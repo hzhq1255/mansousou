@@ -5,6 +5,7 @@ import cn.zucc.edu.mansousou.entity.jpa.HotSearch;
 import cn.zucc.edu.mansousou.entity.jpa.Search;
 import cn.zucc.edu.mansousou.repository.jpa.SearchJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.SearchService;
+import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,7 +45,7 @@ public class SearchServiceImpl implements SearchService {
             hotSearch.setCount(((Long)o.get(1)).intValue());
             hotSearchList.add(hotSearch);
         }
-        Page<HotSearch> hotSearchPage = new PageImpl(hotSearchList,pageable,hotSearchList.size());
+        Page<HotSearch> hotSearchPage = PageUtil.listConvertToPage(hotSearchList,pageable);
         return hotSearchPage;
     }
 
