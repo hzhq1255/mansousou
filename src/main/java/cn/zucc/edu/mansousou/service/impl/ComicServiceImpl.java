@@ -63,10 +63,10 @@ public class ComicServiceImpl implements ComicService {
                 builder.should(QueryBuilders.matchPhraseQuery("desc",comicEs.getDesc()));
             }
             if (comicEs.getGenre() != null && !"".equals(comicEs.getGenre())){
-                builder.should(QueryBuilders.matchPhraseQuery("genre",comicEs.getGenre()));
+                builder.must(QueryBuilders.termQuery("genre",comicEs.getGenre()));
             }
             if (comicEs.getStatus() != null && !"".equals(comicEs.getStatus())){
-                builder.should(QueryBuilders.matchPhraseQuery("status",comicEs.getStatus()));
+                builder.must(QueryBuilders.termQuery("status",comicEs.getStatus()));
             }
         }
         if (isExactMatch != null && isExactMatch == 1){
