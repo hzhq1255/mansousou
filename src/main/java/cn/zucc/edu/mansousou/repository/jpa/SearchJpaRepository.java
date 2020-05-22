@@ -41,11 +41,10 @@ public interface SearchJpaRepository extends JpaRepository<Search,Integer> {
     /**
      * 获取用户的搜索记录
      * @param userId
-     * @param pageable
      * @return
      */
-    @Query("select s from Search s where s.userId =:userId order by s.createTime desc  ")
-    Page<Search> selectAllSearchByUserId(@Param("userId") Integer userId,Pageable pageable);
+    @Query("select s.keyword,count(s.searchId) from Search s where s.userId =:userId group by s.keyword order by count(s.searchId) desc  ")
+    List<List<Object>> selectAllSearchByUserId(@Param("userId") Integer userId);
 
     /**
      * 用户删除某一搜索历史

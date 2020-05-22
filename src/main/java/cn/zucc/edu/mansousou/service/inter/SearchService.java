@@ -39,7 +39,7 @@ public interface SearchService {
      * @param pageSize
      * @return
      */
-    Page<Search> getAllSearchByUserId(Integer userId, Integer currentPage, Integer pageSize);
+    Page<HotSearch> getAllSearchByUserId(Integer userId, Integer currentPage, Integer pageSize);
 
 
     /**

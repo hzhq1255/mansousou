@@ -1,3 +1,18 @@
+POST http://localhost:8443/api/searchComic
+Content-Type: application/x-www-form-urlencoded
+
+keyword=盘龙&currentPage=1&pageSize=10
+
+###
+
+POST http://localhost:8443/api/getAllSearchByUserId
+Content-Type: application/x-www-form-urlencoded
+
+userId=1&currentPage=1&pageSize=10
+
+
+
+###
 POST http://localhost:8443/api/recordRead
 Content-Type: application/x-www-form-urlencoded
 
@@ -18,12 +33,10 @@ Content-Type: application/x-www-form-urlencoded
 
 ###
 GET http://localhost:8443/api/searchComic
-Content-Type: application/json
+Content-Type: application/x-www-form-urlencoded
 
-{
-  "keyword": "test",
-  "currentPage": 1,
-  "pageSize": 10
-}
+keyword=盘龙西红柿漫友文化&currentPage=1&pageSize=10
+
 
 ###
+

@@ -48,9 +48,9 @@ public class UserServiceImpl implements UserService {
                 userJpaRepository.save(user);
                 return Result.success("注册成功");
             }
-            return Result.build(400,"两次输入密码不一致");
+            return Result.error("两次输入密码不一致");
         }
-        return Result.build(400,"该用户已存在");
+        return Result.error("该用户已存在");
     }
 
     @Override

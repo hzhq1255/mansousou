@@ -1,0 +1,24 @@
+POST http://master:9200/comic_detail/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "title": "盘龙"
+          }
+        }
+      ]
+    }
+  },
+  "highlight": {
+    "require_field_match": false,
+    "fields": {
+      "title": {}
+    }
+  }
+}
+
+###

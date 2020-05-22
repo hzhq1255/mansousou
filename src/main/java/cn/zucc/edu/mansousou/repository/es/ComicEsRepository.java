@@ -1,6 +1,11 @@
 package cn.zucc.edu.mansousou.repository.es;
 
 import cn.zucc.edu.mansousou.entity.es.ComicEs;
+import cn.zucc.edu.mansousou.entity.jpa.Comic;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.annotations.Query;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ComicEsRepository extends ElasticsearchRepository<ComicEs,String> {
+
 
 }

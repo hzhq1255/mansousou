@@ -56,9 +56,17 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Page<Search> getAllSearchByUserId(Integer userId, Integer currentPage, Integer pageSize) {
-        Pageable pageable = PageRequest.of(currentPage,pageSize);
-        return searchJpaRepository.selectAllSearchByUserId(userId,pageable);
+    public Page<HotSearch> getAllSearchByUserId(Integer userId, Integer currentPage, Integer pageSize) {
+        List<HotSearch> userSearchList = new ArrayList<>();
+        List<List<Object>> objectList = searchJpaRepository.selectAllSearchByUserId(userId);
+        for (List<Object> o: objectList){
+            HotSearch userSearch = new HotSearch();
+            userSearch.setKeyword((String) o.get(0));
+            userSearch.setCount(((Long)o.get(1)).intValue());
+            userSearchList.add(userSearch);
+        }
+        Page<HotSearch> hotSearchPage = PageUtil.listConvertToPage(userSearchList,PageRequest.of(currentPage,pageSize));
+        return hotSearchPage;
     }
 
     @Override
@@ -80,7 +88,10 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public Result addSearch(Search search) {
-        searchJpaRepository.save(search);
-        return Result.success("add a Search");
+        if (search.getKeyword() != null && !search.getKeyword().equals("") ){
+            searchJpaRepository.save(search);
+            return Result.success("add a Search");
+        }
+        return Result.error("搜索结果不能为空");
     }
 }
