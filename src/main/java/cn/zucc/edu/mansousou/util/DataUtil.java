@@ -1,6 +1,9 @@
 package cn.zucc.edu.mansousou.util;
 
+import cn.zucc.edu.mansousou.entity.jpa.Comic;
+import cn.zucc.edu.mansousou.repository.jpa.CollectJpaRepository;
 import cn.zucc.edu.mansousou.repository.jpa.ComicJpaRepository;
+import cn.zucc.edu.mansousou.repository.jpa.ReadJpaRepository;
 import cn.zucc.edu.mansousou.repository.jpa.RecommendJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +27,12 @@ public class DataUtil {
     @Autowired
     public static RecommendJpaRepository recommendJpaRepository;
 
+    @Autowired
+    public static CollectJpaRepository collectJpaRepository;
+
+    @Autowired
+    public static ReadJpaRepository readJpaRepository;
+
     public static String[] tags =
             new String[]{"爆笑","热血","冒险","科幻","魔幻","玄幻",
             "校园","推理","萌系","穿越","后宫","都市","恋爱","武侠",
@@ -34,8 +43,11 @@ public class DataUtil {
             "节操","明星","暗黑","社会","浪漫","连载中","已完结"};
     public Map<String,int[]> vectorMap = new HashMap<String, int[]>();
 
-
     public static void main(String[] args){
+        List<Comic> comics = comicJpaRepository.findAll();
+        List<Comic> collectComics = comicJpaRepository.findAllByUserIdAtCollect(1);
+        List<Comic> readComics = comicJpaRepository.findAllByUserIdAtRead(1);
+
         List<String> comicTags = new ArrayList<>();
         List<String> userTags = new ArrayList<>();
         //List<Integer> collectIds = collectJpaRepository.deleteAllByUserId(userId).stream().map(e -> e.getCollectId()).collect(Collectors.toList());

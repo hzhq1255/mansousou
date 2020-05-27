@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -21,16 +22,19 @@ public class Recommend implements Serializable {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
     private Comic comic;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
+    @JsonIgnore
     private Date createTime;
-
+    @JsonIgnore
     private Date updateTime;
 
 }

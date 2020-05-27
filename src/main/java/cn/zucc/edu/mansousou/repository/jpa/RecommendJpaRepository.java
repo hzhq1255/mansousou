@@ -1,8 +1,11 @@
 package cn.zucc.edu.mansousou.repository.jpa;
 
 import cn.zucc.edu.mansousou.entity.jpa.Recommend;
+import cn.zucc.edu.mansousou.entity.jpa.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author: hzhq1255
@@ -12,5 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RecommendJpaRepository extends JpaRepository<Recommend,Integer> {
-    
+
+    List<Recommend> findAllByUser(User user);
+
+
 }

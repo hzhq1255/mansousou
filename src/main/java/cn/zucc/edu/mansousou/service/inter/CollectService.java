@@ -4,6 +4,8 @@ import cn.zucc.edu.mansousou.entity.jpa.Collect;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @author hzhq1255
  * @mail hzhq1255@163.com
@@ -28,6 +30,7 @@ public interface CollectService {
      * @return
      */
     Page<Collect> getAllByUserId(Integer userId, Integer currentPage, Integer pageSize);
+
 
     /**
      * 获取所有的收藏

@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.repository.jpa;
 
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
+import org.elasticsearch.common.util.IntArray;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +23,7 @@ public interface ComicJpaRepository extends JpaRepository<Comic,String> {
      * @param pageable
      * @return
      */
-    @Query("select comic from Comic comic order by comic.id desc ")
+    @Query("select comic from Comic comic order by comic.comicId desc ")
     Page<Comic> queryAll(Pageable pageable);
 
     /**
@@ -42,5 +43,53 @@ public interface ComicJpaRepository extends JpaRepository<Comic,String> {
      * @return
      */
     Page<Comic> findAllByTitleContains(String title, Pageable pageable);
+
+    /**
+     * 收藏漫画
+     * @param userId
+     * @return
+     */
+    @Query("select comic from Comic comic,Collect collect "+
+            " where comic.comicId = collect.comicId and collect.userId =:userId")
+    List<Comic> findAllByUserIdAtCollect(@Param("userId") Integer userId);
+
+    /**
+     * 看过的漫画
+     * @param userId
+     * @return
+     */
+    @Query("select comic from Comic comic,Read read "+
+            " where comic.comicId = read.comicId and read.userId =:userId")
+    List<Comic> findAllByUserIdAtRead(@Param("userId") Integer userId);
+
+    @Query("select comic from Comic comic" +
+            " where comic.comicId not in ( " +
+            "   select collect.comicId " +
+            "   from Collect collect " +
+            "   where collect.userId =:userId " +
+            ")")
+    List<Comic> findAllNotInCollect(Integer userId);
+
+    @Query("select comic from Comic comic" +
+            " where comic.comicId not in ( " +
+            "   select read.comicId " +
+            "   from Read read " +
+            "   where read.userId =:userId " +
+            ")")
+    List<Comic> findAllNotInRead(Integer userId);
+
+    @Query("select comic from Comic comic" +
+            " where comic.comicId not in ( " +
+            "   select collect.comicId " +
+            "   from Collect collect " +
+            "   where collect.userId =:userId " +
+            ") and comic.comicId not in (" +
+            "   select read.comicId " +
+            "   from Read read " +
+            "   where read.userId =:userId " +
+            ")")
+    List<Comic> findAllNotInReadAndCollect(Integer userId);
+
+
 
 }

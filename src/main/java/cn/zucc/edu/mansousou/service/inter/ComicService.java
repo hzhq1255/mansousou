@@ -4,8 +4,11 @@ import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author hzhq1255
@@ -48,4 +51,6 @@ public interface ComicService {
      * @return
      */
     Result getComicByComicId(String comicId);
+
+
 }

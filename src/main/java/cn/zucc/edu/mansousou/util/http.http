@@ -1,3 +1,23 @@
+GET http://localhost:8443/api/getRecommendByUser
+Content-Type: application/json
+
+{
+  "userId" : "1"
+}
+
+###
+GET http://localhost:8443/api/getRecommendByUser
+Content-Type: application/x-www-form-urlencoded
+
+userId=1
+
+###
+GET http://localhost:8443/api/getRecommendByUser
+Content-Type: application/x-www-form-urlencoded
+
+userId=1
+
+###
 POST http://localhost:8443/api/searchComic
 Content-Type: application/x-www-form-urlencoded
 
