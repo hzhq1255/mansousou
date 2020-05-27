@@ -27,13 +27,13 @@ public class LikeTask extends QuartzJobBean {
 
         log.info("LikeTask-------- {}", sdf.format(new Date()));
 
-        //将 Redis 里的评论点赞信息同步到数据库里
-        likedService.transLikedFromRedis2DB();
-        likedService.transLikedCountFromRedis2DB();
-
-        //将 Redis 里的回复点赞信息同步到数据库里
-        likedService.transReplyLikedFromRedis2DB();
-        likedService.transReplyLikedCountFromRedis2DB();
+//        //将 Redis 里的评论点赞信息同步到数据库里
+//        likedService.transLikedFromRedis2DB();
+//        likedService.transLikedCountFromRedis2DB();
+//
+//        //将 Redis 里的回复点赞信息同步到数据库里
+//        likedService.transReplyLikedFromRedis2DB();
+//        likedService.transReplyLikedCountFromRedis2DB();
 
     }
 }

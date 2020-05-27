@@ -18,12 +18,11 @@ public class Comment {
     @Column(name = "id")
     private Integer commentId;
 
-    @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "comic_id")
     private String comicId;
 
+    @Column(name = "[desc]")
     private String desc;
 
     private Date updateTime;

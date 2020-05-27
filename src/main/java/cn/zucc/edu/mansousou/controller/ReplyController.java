@@ -21,7 +21,7 @@ public class ReplyController {
     @Autowired
     RedisService redisService;
 
-    @RequestMapping(value = "/getAllReplyByCommmentId",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/getAllReplyByCommentId",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllReplyByCommentId(@RequestParam("commentId") @NotNull Integer commentId,
                                         @RequestParam("currentPage") @NotNull Integer currentPage,
                                         @RequestParam("pageSize") @NotNull Integer pageSize){

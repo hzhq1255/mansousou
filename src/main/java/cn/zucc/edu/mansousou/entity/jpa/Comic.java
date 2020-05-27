@@ -43,7 +43,7 @@ public class Comic {
     private String pics;
     private String url;
     private String rate;
-    @Column(columnDefinition = "longtext")
+    @Column(name = "[desc]",columnDefinition = "longtext")
     private String desc;
     private String author;
     private String hot;
