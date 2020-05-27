@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
  * @Date: 2020/4/27 23:17
  */
 @Service
+@Transactional
 public class ReadServiceImpl implements ReadService {
 
     ReadJpaRepository readJpaRepository;

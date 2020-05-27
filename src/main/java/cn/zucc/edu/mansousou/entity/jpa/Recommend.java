@@ -3,6 +3,7 @@ package cn.zucc.edu.mansousou.entity.jpa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Data
 @Entity
+@DynamicUpdate
 @Table(name = "user_recommend")
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class Recommend implements Serializable {

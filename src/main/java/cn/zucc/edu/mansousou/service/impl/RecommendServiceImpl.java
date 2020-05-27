@@ -9,14 +9,16 @@ import cn.zucc.edu.mansousou.repository.jpa.RecommendJpaRepository;
 import cn.zucc.edu.mansousou.repository.jpa.UserJpaRepository;
 import cn.zucc.edu.mansousou.service.inter.RecommendService;
 import cn.zucc.edu.mansousou.util.VectorMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author: hzhq1255
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
  * @desc:
  */
 @Service
+@Transactional
 public class RecommendServiceImpl implements RecommendService {
 
     @Autowired
@@ -35,6 +38,8 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Autowired
     RecommendJpaRepository recommendJpaRepository;
+
+    Logger log = LoggerFactory.getLogger(RecommendServiceImpl.class);
 
 
     public String getTags(Comic comic){
@@ -65,16 +70,32 @@ public class RecommendServiceImpl implements RecommendService {
     public Integer saveRecommendUser(Integer userId) {
         String tags = this.getUserTags(userId);
         List<RecommendScore> recommendScores = this.getAllComicScore(userId).subList(0,10);
-        for (RecommendScore recommendScore : recommendScores){
-            Recommend recommend = new Recommend();
-            recommend.setComic(recommendScore.getComic());
-            User user = new User();
-            user.setUserId(userId);
-            recommend.setUser(user);
-            recommend.setCreateTime(new Date());
-            recommend.setUpdateTime(new Date());
-            recommendJpaRepository.save(recommend);
+        User user = new User();
+        user.setUserId(userId);
+        List<Recommend> recommends = recommendJpaRepository.findAllByUser(user);
+        int total = recommends.size();
+        if (total == 0){
+            for (RecommendScore recommendScore : recommendScores){
+                Recommend recommend = new Recommend();
+                recommend.setComic(recommendScore.getComic());
+                recommend.setUser(user);
+                recommend.setCreateTime(new Date());
+                recommend.setUpdateTime(new Date());
+                recommendJpaRepository.save(recommend);
+                log.debug("save recommend "+recommend.toString());
+            }
+        }else {
+            for (int i = 0; i < total; i++){
+                Recommend recommend = new Recommend();
+                recommend.setId(recommends.get(i).getId());
+                recommend.setComic(recommendScores.get(i).getComic());
+                recommend.setUser(user);
+                recommend.setUpdateTime(new Date());
+                recommendJpaRepository.save(recommend);
+                log.debug("save recommend "+recommend.toString());
+            }
         }
+
         return userId;
 
     }
@@ -85,8 +106,8 @@ public class RecommendServiceImpl implements RecommendService {
        for (User user : users){
            List<Recommend> recommends = recommendJpaRepository.findAllByUser(user);
            List<RecommendScore> recommendScores = this.getAllComicScore(user.getUserId()).subList(0,10);
-           Integer size =  recommends.size();
-           if (size == 0 || recommends == null){
+           int size =  recommends.size();
+           if (size == 0 ){
                for (RecommendScore recommendScore : recommendScores){
                    Recommend recommend = new Recommend();
                    recommend.setComic(recommendScore.getComic());
@@ -94,6 +115,7 @@ public class RecommendServiceImpl implements RecommendService {
                    recommend.setCreateTime(new Date());
                    recommend.setUpdateTime(new Date());
                    recommendJpaRepository.save(recommend);
+                   log.debug("save recommend "+recommend.toString());
                }
            }else {
                for (int i = 0 ; i < size ; i++){
@@ -101,8 +123,9 @@ public class RecommendServiceImpl implements RecommendService {
                    recommend.setComic(recommendScores.get(i).getComic());
                    recommend.setUser(user);
                    recommend.setId(recommends.get(i).getId());
-                   recommend.setCreateTime(new Date());
+                   recommend.setUpdateTime(new Date());
                    recommendJpaRepository.save(recommend);
+                   log.debug("save recommend "+recommend.toString());
                }
            }
 
@@ -171,34 +194,41 @@ public class RecommendServiceImpl implements RecommendService {
         String tags = this.getUserTags(userId);
         LinkedList<RecommendScore> comicScore = new LinkedList<>();
         List<Comic> comics =  comicJpaRepository.findAllNotInCollect(userId);
+        int total = comics.size();
+        Random random = new Random();
         for (Comic comic : comics){
             RecommendScore recommendScore = new RecommendScore();
             recommendScore.setTags(this.getTags(comic));
             Double sim = this.getSim(tags,this.getTags(comic));
-            recommendScore.setComic(comic);
+            if (sim == 0){
+                Comic randComic = comics.get(random.nextInt(total));
+                recommendScore.setComic(randComic);
+            }else {
+                recommendScore.setComic(comic);
+            }
             recommendScore.setScore(sim);
 
             int size = comicScore.size();
-            if (size != 0 ){
-                if (recommendScore.getScore() >= comicScore.getFirst().getScore() ){
-                    comicScore.addFirst(recommendScore);
-                }
-                else if (recommendScore.getScore() <= comicScore.getLast().getScore()){
-                    comicScore.addLast(recommendScore);
-                }
-                else {
-                    for (int i = 0; i < size - 1 ; i++){
-                        if (comicScore.get(i).getScore() > recommendScore.getScore()
-                                && comicScore.get(i+1).getScore() <= recommendScore.getScore()){
-                            comicScore.add(i+1,recommendScore);
-                            break;
+            if (sim > 0){
+                if (size != 0 ){
+                    if (recommendScore.getScore() >= comicScore.getFirst().getScore() ){
+                        comicScore.addFirst(recommendScore);
+                    }
+                    else if (recommendScore.getScore() <= comicScore.getLast().getScore()){
+                        comicScore.addLast(recommendScore);
+                    }
+                    else {
+                        for (int i = 0; i < size - 1 ; i++){
+                            if (comicScore.get(i).getScore() > recommendScore.getScore()
+                                    && comicScore.get(i+1).getScore() <= recommendScore.getScore()){
+                                comicScore.add(i+1,recommendScore);
+                                break;
+                            }
                         }
                     }
+                }else{
+                    comicScore.add(recommendScore);
                 }
-
-            }else{
-
-                comicScore.add(recommendScore);
             }
         }
         return comicScore;

@@ -16,6 +16,7 @@ import java.util.Date;
  * @Date: 2020/4/27 18:22
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 

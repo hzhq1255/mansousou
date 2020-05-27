@@ -53,4 +53,5 @@ public interface ComicService {
     Result getComicByComicId(String comicId);
 
 
+    void syncIndex(List<ComicEs> comics);
 }

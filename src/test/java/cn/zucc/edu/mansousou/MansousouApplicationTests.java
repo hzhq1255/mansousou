@@ -4,6 +4,7 @@ import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.es.SuggestEs;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import cn.zucc.edu.mansousou.entity.jpa.RecommendScore;
+import cn.zucc.edu.mansousou.entity.jpa.User;
 import cn.zucc.edu.mansousou.repository.es.SuggestEsRepository;
 import cn.zucc.edu.mansousou.repository.jpa.ComicJpaRepository;
 import cn.zucc.edu.mansousou.service.impl.RecommendServiceImpl;
@@ -120,6 +121,11 @@ class MansousouApplicationTests {
 
     @Test
     void testSaveRecommend(){
+
+        recommendService.saveRecommendAllUser();
+    }
+    @Test
+    void testSaveRecommendByUser(){
         recommendService.saveRecommendUser(1);
     }
 
@@ -128,4 +134,5 @@ class MansousouApplicationTests {
         List<Comic> comics = recommendService.getRandComic(10);
         System.out.println(comics);
     }
+
 }

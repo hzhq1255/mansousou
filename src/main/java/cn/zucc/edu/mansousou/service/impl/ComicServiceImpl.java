@@ -24,7 +24,9 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author hzhq1255
@@ -148,5 +150,17 @@ public class ComicServiceImpl implements ComicService {
             return Result.success("没有此漫画");
         }
         return Result.success(comicEs);
+    }
+
+    @Override
+    public void syncIndex(List<ComicEs> comics) {
+        for (ComicEs comic : comics){
+            try {
+                comicEsRepository.save(comic);
+                Thread.sleep(40);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

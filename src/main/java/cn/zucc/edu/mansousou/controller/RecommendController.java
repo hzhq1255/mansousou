@@ -38,4 +38,10 @@ public class RecommendController {
         List<Comic> comics = recommendService.getRandComic(limit);
         return Result.success(comics);
     }
+
+    @RequestMapping(value = "/saveRecommendAllUser",method = {RequestMethod.POST})
+    public Result saveRecommendAllUser(){
+        recommendService.saveRecommendAllUser();
+        return Result.success("保存成功");
+    }
 }
