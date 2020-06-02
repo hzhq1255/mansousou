@@ -19,6 +19,7 @@ import java.util.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author: hzhq1255
@@ -90,6 +91,7 @@ public class RecommendServiceImpl implements RecommendService {
                 recommend.setId(recommends.get(i).getId());
                 recommend.setComic(recommendScores.get(i).getComic());
                 recommend.setUser(user);
+                recommend.setCreateTime(recommends.get(i).getCreateTime());
                 recommend.setUpdateTime(new Date());
                 recommendJpaRepository.save(recommend);
                 log.debug("save recommend "+recommend.toString());
@@ -123,6 +125,7 @@ public class RecommendServiceImpl implements RecommendService {
                    recommend.setComic(recommendScores.get(i).getComic());
                    recommend.setUser(user);
                    recommend.setId(recommends.get(i).getId());
+                   recommend.setCreateTime(recommends.get(i).getCreateTime());
                    recommend.setUpdateTime(new Date());
                    recommendJpaRepository.save(recommend);
                    log.debug("save recommend "+recommend.toString());
@@ -134,12 +137,13 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     @Override
-    public List<Recommend> getRecommendByUser(Integer userId) {
+    public List<Comic> getRecommendByUser(Integer userId) {
         List<Recommend> recommends = new ArrayList<>();
         User user = new User();
         user.setUserId(userId);
         recommends = recommendJpaRepository.findAllByUser(user);
-        return recommends;
+        List<Comic> comics = recommends.stream().map(e-> e.getComic()).collect(Collectors.toList());
+        return comics;
     }
 
 

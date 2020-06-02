@@ -1,5 +1,6 @@
 package cn.zucc.edu.mansousou.controller;
 
+import cn.zucc.edu.mansousou.entity.es.SuggestText;
 import cn.zucc.edu.mansousou.service.inter.SuggestService;
 import cn.zucc.edu.mansousou.util.Result;
 import org.elasticsearch.search.suggest.Suggest;
@@ -28,7 +29,7 @@ public class SuggestController {
         if (keyword == null || "".equals(keyword)){
             return Result.error("搜索关键字不能为空");
         }
-        List<String> result = suggestService.getSuggest(keyword);
+        List<SuggestText> result = suggestService.getSuggest(keyword);
         return Result.success(result);
     }
 }

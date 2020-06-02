@@ -2,6 +2,7 @@ package cn.zucc.edu.mansousou;
 
 import cn.zucc.edu.mansousou.entity.es.ComicEs;
 import cn.zucc.edu.mansousou.entity.es.SuggestEs;
+import cn.zucc.edu.mansousou.entity.es.SuggestText;
 import cn.zucc.edu.mansousou.entity.jpa.Comic;
 import cn.zucc.edu.mansousou.entity.jpa.RecommendScore;
 import cn.zucc.edu.mansousou.entity.jpa.User;
@@ -104,7 +105,7 @@ class MansousouApplicationTests {
     @Test
     void testSuggest(){
         SuggestService suggestService = new SuggestServiceImpl();
-        List<String> result = suggestService.getSuggest("盘");
+        List<SuggestText> result = suggestService.getSuggest("盘");
         System.out.println(result);
     }
 

@@ -1,8 +1,10 @@
 package cn.zucc.edu.mansousou.service.impl;
 
 import cn.zucc.edu.mansousou.entity.es.SuggestEs;
+import cn.zucc.edu.mansousou.entity.es.SuggestText;
 import cn.zucc.edu.mansousou.repository.es.SuggestEsRepository;
 import cn.zucc.edu.mansousou.service.inter.SuggestService;
+import cn.zucc.edu.mansousou.util.Result;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.suggest.Suggest;
@@ -36,7 +38,7 @@ public class SuggestServiceImpl implements SuggestService {
 
 
     @Override
-    public List<String> getSuggest(String keyword) {
+    public List<SuggestText> getSuggest(String keyword) {
         SuggestBuilder suggestBuilder = new SuggestBuilder();
         CompletionSuggestionBuilder fullPinyinSuggest =
                 new CompletionSuggestionBuilder("fullPinyin")
@@ -57,6 +59,7 @@ public class SuggestServiceImpl implements SuggestService {
         Suggest.Suggestion prefixPinyinSuggestion = searchResponse.getSuggest().getSuggestion("prefixPinyinSuggest");
         Suggest.Suggestion suggestTextSuggestion = searchResponse.getSuggest().getSuggestion("chineseWordSuggest");
         List<String> result = new ArrayList<>();
+        List<SuggestText> suggestTexts = new ArrayList<>();
         List<Suggest.Suggestion.Entry> entries = suggestTextSuggestion.getEntries();
 
         for (Suggest.Suggestion.Entry entry : entries){
@@ -92,7 +95,15 @@ public class SuggestServiceImpl implements SuggestService {
                 }
             }
         }
+        int index = 0;
+        for (String string:result){
+            index++;
+            SuggestText suggestText = new SuggestText();
+            suggestText.setIndex(index);
+            suggestText.setValue(string);
+            suggestTexts.add(suggestText);
+        }
 
-        return result;
+        return suggestTexts;
     }
 }

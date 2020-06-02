@@ -26,7 +26,7 @@ public class RecommendController {
 
     @RequestMapping(value = "/getRecommendByUser",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getRecommendByUser(@RequestParam(value = "userId") @NotNull Integer userId){
-        List<Recommend> recommends = recommendService.getRecommendByUser(userId);
+        List<Comic> recommends = recommendService.getRecommendByUser(userId);
         return Result.success(recommends);
     }
 

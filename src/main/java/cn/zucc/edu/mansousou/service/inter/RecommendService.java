@@ -16,7 +16,7 @@ import java.util.List;
 public interface RecommendService {
 
 
-    List<Recommend> getRecommendByUser(Integer userId);
+    List<Comic> getRecommendByUser(Integer userId);
 
     String getCollectTags(Integer userId);
 

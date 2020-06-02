@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableCaching
 @EnableJpaRepositories(basePackages = {"cn.zucc.edu.mansousou.repository.jpa"})
 @EnableElasticsearchRepositories(basePackages = {"cn.zucc.edu.mansousou.repository.es"})
 public class MansousouApplication {

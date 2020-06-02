@@ -57,9 +57,9 @@ public class ComicServiceImpl implements ComicService {
     public Page<ComicEs> searchComic(String keyword, Integer currentPage, Integer pageSize) {
         Pageable pageable = PageRequest.of(currentPage,pageSize);
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        builder.should(QueryBuilders.matchQuery("title",keyword).boost(5f));
-        builder.should(QueryBuilders.matchQuery("author",keyword).boost(4f));
-        builder.should(QueryBuilders.matchQuery("desc",keyword).boost(1f));
+        builder.should(QueryBuilders.matchPhraseQuery("title",keyword).boost(100f).analyzer("ik_max_word"));
+        builder.should(QueryBuilders.matchPhraseQuery("author",keyword).boost(10f).analyzer("ik_max_word"));
+        builder.should(QueryBuilders.matchPhraseQuery("desc",keyword).boost(1f).analyzer("ik_max_word"));
         String preTags = "<font color=\"blue\">";
         String postTags = "</font>";
         HighlightBuilder.Field highlightField1 = new HighlightBuilder.Field("title")

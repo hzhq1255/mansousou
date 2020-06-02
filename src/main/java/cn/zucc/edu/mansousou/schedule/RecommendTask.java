@@ -8,6 +8,7 @@ import cn.zucc.edu.mansousou.service.inter.ChapterService;
 import cn.zucc.edu.mansousou.service.inter.ComicService;
 import cn.zucc.edu.mansousou.service.inter.RecommendService;
 import cn.zucc.edu.mansousou.service.inter.SuggestService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,10 +37,19 @@ public class RecommendTask {
     RecommendService recommendService;
 
 
+//    @Scheduled(cron = "0 0 0 * * ?")
     @Scheduled(cron = "0 0 0 * * ?")
     public void saveRecommend(){
+        System.out.println("正在更新推荐表  "+(new Date()).toString());
+        System.out.println("------------");
         recommendService.saveRecommendAllUser();
+        System.out.println("更新完成  "+(new Date()).toString());
+
     }
 
+    @Scheduled(cron = "0 30 13 ? * *")
+    public void test(){
+        System.out.println("正在测试");
+    }
 
 }

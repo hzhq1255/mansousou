@@ -1,6 +1,7 @@
 package cn.zucc.edu.mansousou.service.inter;
 
 import cn.zucc.edu.mansousou.entity.es.SuggestEs;
+import cn.zucc.edu.mansousou.entity.es.SuggestText;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface SuggestService {
      * @param keyword 搜索关键字
      * @return 返回搜索建议
      */
-    List<String> getSuggest(String keyword);
+    List<SuggestText> getSuggest(String keyword);
 
 
 }
