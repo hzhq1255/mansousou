@@ -96,36 +96,36 @@ public class ComicServiceImpl implements ComicService {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (isExactMatch == null || isExactMatch == 0 ){
             if (comicEs.getTitle() != null && !"".equals(comicEs.getTitle())){
-                builder.should(QueryBuilders.matchQuery("title",comicEs.getTitle()).boost(10f));
+                builder.should(QueryBuilders.matchQuery("title",comicEs.getTitle()).boost(100f));
             }
             if (comicEs.getAuthor() != null && !"".equals(comicEs.getAuthor())){
-                builder.should(QueryBuilders.matchQuery("author",comicEs.getAuthor()).boost(8f));
+                builder.should(QueryBuilders.matchQuery("author",comicEs.getAuthor()).boost(10f));
             }
             if (comicEs.getDesc() != null && !"".equals(comicEs.getDesc())){
                 builder.should(QueryBuilders.matchQuery("desc",comicEs.getDesc()).boost(3f));
             }
             if (comicEs.getGenre() != null && !"".equals(comicEs.getGenre())){
-                builder.should(QueryBuilders.matchPhraseQuery("genre.keyword",comicEs.getGenre()).boost(4f));
+                builder.must(QueryBuilders.matchQuery("genre",comicEs.getGenre()).boost(5f));
             }
             if (comicEs.getStatus() != null && !"".equals(comicEs.getStatus())){
-                builder.should(QueryBuilders.matchPhraseQuery("status.keyword",comicEs.getStatus()).boost(5f));
+                builder.must(QueryBuilders.matchQuery("status",comicEs.getStatus()).boost(5f));
             }
         }
         if (isExactMatch != null && isExactMatch == 1){
             if (comicEs.getTitle() != null && !"".equals(comicEs.getTitle())){
-                builder.must(QueryBuilders.termQuery("title.keyword",comicEs.getTitle()));
+                builder.must(QueryBuilders.matchPhraseQuery("title",comicEs.getTitle()).boost(100f));
             }
             if (comicEs.getAuthor() != null && !"".equals(comicEs.getAuthor())){
-                builder.must(QueryBuilders.termQuery("author.keyword",comicEs.getAuthor()));
+                builder.must(QueryBuilders.matchPhraseQuery("author",comicEs.getAuthor()).boost(10f));
             }
             if (comicEs.getDesc() != null && !"".equals(comicEs.getDesc())){
-                builder.must(QueryBuilders.termQuery("desc.keyword",comicEs.getDesc()));
+                builder.must(QueryBuilders.matchPhraseQuery("desc",comicEs.getDesc()).boost(1f));
             }
             if (comicEs.getGenre() != null && !"".equals(comicEs.getGenre())){
-                builder.must(QueryBuilders.termQuery("genre.keyword",comicEs.getGenre()));
+                builder.must(QueryBuilders.matchQuery("genre",comicEs.getGenre()).boost(5f));
             }
             if (comicEs.getStatus() != null && !"".equals(comicEs.getStatus())){
-                builder.must(QueryBuilders.termQuery("status.keyword",comicEs.getStatus()));
+                builder.must(QueryBuilders.matchQuery("status",comicEs.getStatus()).boost(5f));
             }
         }
         HighlightBuilder highlightBuilder = new HighlightBuilder()

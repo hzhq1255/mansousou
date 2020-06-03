@@ -66,6 +66,14 @@ public class RecommendServiceImpl implements RecommendService {
         return tags;
     }
 
+    public Boolean isExistedInScore(LinkedList<RecommendScore> recommendScores,Comic comic){
+        for (RecommendScore score: recommendScores){
+            if (score.getComic().getComicId() == comic.getComicId()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public Integer saveRecommendUser(Integer userId) {
@@ -204,36 +212,44 @@ public class RecommendServiceImpl implements RecommendService {
             RecommendScore recommendScore = new RecommendScore();
             recommendScore.setTags(this.getTags(comic));
             Double sim = this.getSim(tags,this.getTags(comic));
-            if (sim == 0){
-                Comic randComic = comics.get(random.nextInt(total));
-                recommendScore.setComic(randComic);
-            }else {
-                recommendScore.setComic(comic);
-            }
             recommendScore.setScore(sim);
-
-            int size = comicScore.size();
-            if (sim > 0){
-                if (size != 0 ){
-                    if (recommendScore.getScore() >= comicScore.getFirst().getScore() ){
-                        comicScore.addFirst(recommendScore);
-                    }
-                    else if (recommendScore.getScore() <= comicScore.getLast().getScore()){
-                        comicScore.addLast(recommendScore);
-                    }
-                    else {
-                        for (int i = 0; i < size - 1 ; i++){
-                            if (comicScore.get(i).getScore() > recommendScore.getScore()
-                                    && comicScore.get(i+1).getScore() <= recommendScore.getScore()){
-                                comicScore.add(i+1,recommendScore);
-                                break;
+            recommendScore.setComic(comic);
+            if (sim == 0){
+                Boolean isExisted = true;
+                Comic randComic = recommendScore.getComic();
+                while (isExisted){
+                    randComic = comics.get(random.nextInt(total));
+                    isExisted = this.isExistedInScore(comicScore,randComic);
+                }
+                recommendScore.setComic(randComic);
+                comicScore.addLast(recommendScore);
+            }else {
+                int size = comicScore.size();
+                if (sim > 0){
+                    if (size != 0 ){
+                        if (recommendScore.getScore() >= comicScore.getFirst().getScore() ){
+                            comicScore.addFirst(recommendScore);
+                        }
+                        else if (recommendScore.getScore() <= comicScore.getLast().getScore()){
+                            comicScore.addLast(recommendScore);
+                        }
+                        else {
+                            for (int i = 0; i < size - 1 ; i++){
+                                if (comicScore.get(i).getScore() > recommendScore.getScore()
+                                        && comicScore.get(i+1).getScore() <= recommendScore.getScore()){
+                                    comicScore.add(i+1,recommendScore);
+                                    break;
+                                }
                             }
                         }
+                    }else{
+                        comicScore.add(recommendScore);
                     }
-                }else{
-                    comicScore.add(recommendScore);
                 }
             }
+
+
+
         }
         return comicScore;
     }

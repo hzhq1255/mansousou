@@ -122,12 +122,13 @@ class MansousouApplicationTests {
 
     @Test
     void testSaveRecommend(){
-
         recommendService.saveRecommendAllUser();
     }
     @Test
     void testSaveRecommendByUser(){
-        recommendService.saveRecommendUser(1);
+        LinkedList<RecommendScore> recommendScores = recommendService.getAllComicScore(12);
+        System.out.println(recommendScores.subList(0,10));
+        //recommendService.saveRecommendUser(1);
     }
 
     @Test

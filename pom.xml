@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.zucc.edu</groupId>
     <artifactId>mansousou</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>mansousou</name>
     <description>Comic Search Spring Boot</description>
 
