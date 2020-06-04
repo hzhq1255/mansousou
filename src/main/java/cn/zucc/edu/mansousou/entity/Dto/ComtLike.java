@@ -26,6 +26,7 @@ public class ComtLike {
 
 
     //点赞的用户的id
+    @Column(name = "comment_id")
     private Integer commentId;
 
 

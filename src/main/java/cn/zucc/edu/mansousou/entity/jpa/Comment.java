@@ -1,11 +1,12 @@
 package cn.zucc.edu.mansousou.entity.jpa;
 
+import cn.zucc.edu.mansousou.entity.Dto.ComtLike;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -28,5 +29,14 @@ public class Comment {
     private Date updateTime;
 
     private Integer likenum;
+
+
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private List<ComtLike> comtLikeList;
+
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private List<Reply> replyList;
 
 }
