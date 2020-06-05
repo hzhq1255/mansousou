@@ -1,0 +1,33 @@
+version: '3'
+services: 
+    es-master:
+        image: elasticsearch:6.8.0
+        container_name: es-master
+        restart: always
+        environment: 
+            - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+        ulimits: 
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536   
+        volumes: 
+            - ./conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+            - ./data:/usr/share/elasticsearch/data
+            - ./logs:/usr/share/elasticsearch/logs
+            - ./plugins/analysis-ik:/usr/share/elasticsearch/plugins/analysis-ik
+        network_mode: host
+    kibana:
+        image: kibana:6.8.0
+        container_name: kibana
+        restart: always
+        environment: 
+            - "ELASTICSEARCH_URL=http://127.0.0.1:9200"
+        volumes: 
+            - ./conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+        depends_on: 
+            - es-master
+        network_mode: host
+          
