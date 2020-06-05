@@ -1,11 +1,15 @@
 package cn.zucc.edu.mansousou.controller;
 
+import cn.zucc.edu.mansousou.entity.Dto.ComtLike;
 import cn.zucc.edu.mansousou.entity.jpa.Comment;
 import cn.zucc.edu.mansousou.service.inter.CommentService;
+import cn.zucc.edu.mansousou.service.inter.LikedService;
 import cn.zucc.edu.mansousou.service.inter.RedisService;
 import cn.zucc.edu.mansousou.util.PageUtil;
+import cn.zucc.edu.mansousou.util.RedisKeyUtils;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -22,6 +26,11 @@ public class CommentController {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    LikedService likedService;
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
 
     @RequestMapping(value = "/getAllCommentByUserId",method = {RequestMethod.GET,RequestMethod.POST})
@@ -44,8 +53,8 @@ public class CommentController {
 
     @RequestMapping(value = "/getAllCommentByComicId",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getAllCommentByComicId(@RequestParam("comicId") @NotNull String comicId,
-                                   @RequestParam("currentPage") @NotNull Integer currentPage,
-                                   @RequestParam("pageSize") @NotNull Integer pageSize){
+                                         @RequestParam("currentPage") @NotNull Integer currentPage,
+                                         @RequestParam("pageSize") @NotNull Integer pageSize){
         if (comicId.isEmpty() ){
             return Result.build(400,"漫画id不能为空");
         }else if ( currentPage <= 0) {
@@ -112,19 +121,33 @@ public class CommentController {
 
     @RequestMapping(value = "/like",method = {RequestMethod.POST})
     public Result like(@RequestParam("commentId")  Integer commentId,
-                         @RequestParam("userId")  Integer userId) {
+                       @RequestParam("userId")  Integer userId) {
         //先把数据存到Redis里,再定时存回数据库
-        redisService.saveLiked2Redis(commentId,userId);
-        redisService.incrementLikedCount(commentId);
-        return Result.success(commentId);
+
+       ComtLike comtLike = likedService.getByCommentIdAndUserId(commentId,userId);
+        if(comtLike!=null){
+            return Result.error("你已经点赞过这条评论了");
+        }
+
+        String key = RedisKeyUtils.getComtLikedKey(commentId,userId);
+        if(redisTemplate.opsForHash().hasKey(RedisKeyUtils.MAP_KEY_COMT_LIKED,key)){
+            return Result.success(commentId);
+        }
+        else {
+            redisService.saveLiked2Redis(commentId, userId);
+            redisService.incrementLikedCount(commentId);
+            return Result.success(commentId);
+        }
     }
 
     @RequestMapping(value =  "/unlike",method = {RequestMethod.POST})
     public Result unlike(@RequestParam("commentId") Integer commentId,
-                           @RequestParam("userId") Integer userId) {
-        //取消点赞,先存到Redis里面，再定时写到数据库里
+                         @RequestParam("userId") Integer userId) {
+        //取消点赞,先存到Redis里面，再删除，不写到数据库里
+        String key = RedisKeyUtils.getComtLikedKey(commentId,userId);
         redisService.unlikeFromRedis(commentId,userId);
         redisService.decrementLikedCount(commentId);
+        redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_KEY_COMT_LIKED,key);
         return Result.success(commentId);
     }
 

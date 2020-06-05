@@ -1,14 +1,15 @@
 package cn.zucc.edu.mansousou.controller;
 
 import cn.zucc.edu.mansousou.entity.jpa.Search;
+import cn.zucc.edu.mansousou.service.inter.RedisService;
 import cn.zucc.edu.mansousou.service.inter.SearchService;
 import cn.zucc.edu.mansousou.util.PageUtil;
 import cn.zucc.edu.mansousou.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author: hzhq1255
@@ -22,6 +23,11 @@ import java.util.Date;
 public class SearchController {
 
     SearchService searchService;
+
+    @Autowired
+    RedisService redisService;
+
+
 
     @Autowired
     public void setSearchService(SearchService searchService) {
@@ -80,8 +86,17 @@ public class SearchController {
         search.setKeyword(keyword);
         search.setUserId(userId);
         search.setCreateTime(new Date());
+
+        redisService.saveSearch2Redis(keyword);
+
         return searchService.addSearch(search);
     }
+
+    @RequestMapping(value = "/TopSearch",method = {RequestMethod.GET})
+    public Set<Object> TopSearch(){
+        return   redisService.getHotSearchTop10();
+    }
+
 
 
 }

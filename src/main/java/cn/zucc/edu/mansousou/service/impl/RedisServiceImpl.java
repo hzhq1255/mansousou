@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -26,6 +27,20 @@ public class RedisServiceImpl implements RedisService {
 
     @Autowired
     LikedService likedService;
+
+
+    @Override
+    public  void saveSearch2Redis(String keyword){
+        String member= RedisKeyUtils.getSearchKey(keyword);
+        redisTemplate.opsForZSet().incrementScore(RedisKeyUtils.MAP_KEY_HOT_SEARCH,member,1);
+
+    }
+
+    @Override
+    public Set<Object> getHotSearchTop10(){
+        return  redisTemplate.opsForZSet().reverseRangeWithScores(RedisKeyUtils.MAP_KEY_HOT_SEARCH,0,9);
+    }
+
 
     @Override
     public void saveLiked2Redis(Integer commentId, Integer userId) {

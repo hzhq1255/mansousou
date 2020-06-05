@@ -13,6 +13,9 @@ import java.util.List;
 public interface LikedService {
 
 
+//    Boolean IsComtLiked(Integer userid,Integer commentid);
+
+
     /**
      * 保存评论点赞记录
      * @param comtLike

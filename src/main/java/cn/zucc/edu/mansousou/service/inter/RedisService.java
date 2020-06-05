@@ -4,8 +4,14 @@ import cn.zucc.edu.mansousou.entity.Dto.LikedCountDTO;
 import cn.zucc.edu.mansousou.entity.Dto.ComtLike;
 import cn.zucc.edu.mansousou.entity.Dto.ReplyLike;
 import java.util.List;
+import java.util.Set;
 
 public interface RedisService {
+
+
+    void saveSearch2Redis(String keyword);
+
+    Set<Object> getHotSearchTop10();
 
     /**
      * 评论点赞。状态为1
