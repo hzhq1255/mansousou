@@ -17,7 +17,7 @@ services:
             - ./conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
             - ./data:/usr/share/elasticsearch/data
             - ./logs:/usr/share/elasticsearch/logs
-            - ./plugins/analysis-ik:/usr/share/elasticsearch/plugins/analysis-ik
+            - ./plugins:/usr/share/elasticsearch/plugins
         network_mode: host
     kibana:
         image: kibana:6.8.0
